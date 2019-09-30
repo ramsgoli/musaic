@@ -22,7 +22,7 @@ class Auth {
       res.cookie('refresh_token', data.body['refresh_token'], {
         httpOnly: true
       })
-      res.end()
+      res.redirect('/users/me')
     } catch (err) {
       next(err)
     }
