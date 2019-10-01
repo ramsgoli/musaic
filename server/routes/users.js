@@ -43,7 +43,7 @@ class Users {
 
   static async playlists(req, res, next) {
     try {
-      const data = await req.spotifyApi.getUserPlaylists()
+      const data = await req.spotifyApi.getUserPlaylists({ limit: 50 })
       res.send({ data: data.body })
     } catch (err) {
       next(err)
