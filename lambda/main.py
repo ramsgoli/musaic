@@ -3,8 +3,9 @@ import spotipy
 import tempfile
 from urllib import urlretrieve
 import multiprocessing
-from os import listdir, path
+from os import listdir, path, rename
 import shutil
+from mosaic import mosaic
 
 def download_album_cover_func(url, directory):
     file_name = url.split("/")[-1]
@@ -25,7 +26,7 @@ def get_playlist_ids(sp, playlist_id):
 
     return ids
 
-def download_album_cover_art(sp, playlist_ids):
+def download_album_cover_art(sp, playlist_ids, image_path):
     temp_dir = tempfile.mkdtemp()
 
     processes = []
@@ -45,8 +46,13 @@ def download_album_cover_art(sp, playlist_ids):
     for process in processes:
         process.join()
 
-    # list all images downloaded
-    print(listdir(temp_dir))
+    print "Finished downloading all files"
+
+    # generate mosaic
+    mosaic(image_path, temp_dir)
+
+    # move output file
+    rename(path.join(temp_dir, "mosaic.jpeg"), "/Users/ramsgoli/output.jpeg")
 
     # clean up
     shutil.rmtree(temp_dir)
@@ -65,12 +71,12 @@ def lambda_handler(event, context):
     playlist_ids = get_playlist_ids(sp, playlist_id)
 
     # download all album cover for this playlist
-    download_album_cover_art(sp, playlist_ids)
+    download_album_cover_art(sp, playlist_ids, image_data)
 
 event = {
     "playlist_id": "1tzytA4QOHs4HYfIcOGsNV",
-    "image_data": "lkjflsdkj",
-    "access_token": "BQD01V7vAfYcKdhhrXjSLbKyr0yNmaI73BBeM0evBFxQu0RfmBY-6DieUcioS6UB_fLv6mekSkPlCs-wVbmIIDlMRJGLl3eDBMXR0LkI1DwvIRNFQkNMSTiOXJZfsOFCBbPWHh059UHxp-xfC2nDQTjz6e759ubhZpo6CaG_3u2TBZqR-Ui1HaGX"
+    "image_data": "/Users/ramsgoli/Pictures/photo.jpg",
+    "access_token": "BQAwHXdsUfcpwOe8z0Dhb6n_UY5FT5YfwKIoG-54pLE2e3_tOWTkb5oniIrvvDounRPHXK67KxZ4s7TNwGWe24x2icu7pAAll5lAdGH-57cNZYuxmUqzK44PtI4969BzQjXmd1oYI5w5GA40kSD-pG2kLWWQ605WPl9dDvdOlQ3qjwlUl9bTC0gY<Paste>",
 }
 
 context = {}
