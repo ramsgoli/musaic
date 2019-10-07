@@ -6,6 +6,7 @@ import multiprocessing
 from os import listdir, path, rename
 import shutil
 from mosaic import mosaic
+import base64
 
 def download_album_cover_func(url, directory):
     file_name = url.split("/")[-1]
