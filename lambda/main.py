@@ -51,8 +51,14 @@ def download_album_cover_art(sp, playlist_ids, image_path, temp_dir):
     # generate mosaic
     mosaic(image_path, temp_dir)
 
-    # move output file
-    rename(path.join(temp_dir, "mosaic.jpeg"), "/Users/ramsgoli/output.jpeg")
+
+def write_photo_data_to_file(file_data, temp_dir):
+    file_path = path.join(temp_dir, "input_image.jpeg")
+    fh = open(file_path, "wb")
+    fh.write(file_data.decode('base64'))
+    fh.close()
+
+    return file_path
 
 
 def lambda_handler(event, context):
@@ -68,7 +74,10 @@ def lambda_handler(event, context):
 
     # download all album cover for this playlist
     temp_dir = tempfile.mkdtemp()
-    download_album_cover_art(sp, playlist_ids, image_data, temp_dir)
+
+    # write image_data to a file and get file path
+    image_path = write_photo_data_to_file(image_data, temp_dir)
+    download_album_cover_art(sp, playlist_ids, image_path, temp_dir)
 
     with open(path.join(temp_dir, "mosaic.jpeg"), "rb") as imageFile:
 	str_data = base64.b64encode(imageFile.read())
