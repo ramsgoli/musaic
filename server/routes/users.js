@@ -1,6 +1,8 @@
 var express = require('express')
 var router = express.Router()
+const _ = require('lodash')
 const { createAuthenticatedSpotifyApi } = require('../spotify')
+
 
 class Users {
 
@@ -36,7 +38,7 @@ class Users {
   static async me(req, res, next) {
     try {
       const data = await req.spotifyApi.getMe()
-      const imageUrl = data.body.images[0].url
+      const imageUrl = _.get(data, 'body.images[0].url', "https://img.icons8.com/dotty/80/000000/cat-profile.png")
       res.render('me', { name: data.body["display_name"], image: imageUrl })
     } catch (err) {
       next(err)
