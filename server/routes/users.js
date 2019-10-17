@@ -11,8 +11,8 @@ class Users {
     // get access token from cookie
     if (!req.cookies['access_token']) {
       // refresh token
-      spotifyApi.setRefreshToken(req.cookies['refresh_token'])
       try {
+        spotifyApi.setRefreshToken(req.cookies['refresh_token'])
         const data = await spotifyApi.refreshAccessToken()
 
         res.cookie('access_token', data.body['access_token'], {
@@ -22,7 +22,8 @@ class Users {
 
         spotifyApi.setAccessToken(data.body['access_token'])
       } catch (err) {
-        return next(err)
+        // redirect to login route
+        return res.redirect('/auth/login')
       }
     } else {
       const access_token = req.cookies['access_token']
