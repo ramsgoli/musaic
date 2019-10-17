@@ -35,7 +35,8 @@ class Users {
   static async me(req, res, next) {
     try {
       const data = await req.spotifyApi.getMe()
-      res.send({ data: data.body })
+      const imageUrl = data.body.images[0].url
+      res.render('me', { name: data.body["display_name"], image: imageUrl })
     } catch (err) {
       next(err)
     }
