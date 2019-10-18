@@ -39,7 +39,12 @@ class Users {
     try {
       const data = await req.spotifyApi.getMe()
       const imageUrl = _.get(data, 'body.images[0].url', "https://img.icons8.com/dotty/80/000000/cat-profile.png")
-      res.render('me', { name: data.body["display_name"], image: imageUrl })
+      res.render('me', {
+        name: data.body["display_name"],
+        image: imageUrl,
+        followers: data.body["followers"],
+        email: data.body["email"]
+      })
     } catch (err) {
       next(err)
     }
