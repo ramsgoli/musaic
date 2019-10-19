@@ -23,7 +23,7 @@ class Upload {
 
       const returnData = {
         signedRequest: data,
-        url: `https://${config.s3Bucket}.s3.amazonaws.com/uploads/{fileName}`
+        url: `https://${config.s3Bucket}.s3.amazonaws.com/uploads/${fileName}`
       }
       res.write(JSON.stringify(returnData))
       res.end()
