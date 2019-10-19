@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { spotifyApi } = require('../spotify')
-const querystring = require('querystring')
+const { spotifyApi } = require('../../../spotify')
 
 class Auth {
   static login(_, res) {
