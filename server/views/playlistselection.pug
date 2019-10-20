@@ -29,3 +29,14 @@ html
             #instruction
               p Instructions
           #playlists Playlists
+              - 
+            .playlist_Col
+              - for (var i = 0; i <= #{playlists}.length; i+2) {
+                  - url =  playlists[i].images[0].url
+                    img.playlist_img(src=url)
+              - }
+            .playlist_Col
+              - for (var i = 1; i <= #{playlists}.length; i+2) {
+                  - url =  playlists[i].images[0].url
+                    img.playlist_img(src=url)
+              - }
