@@ -6,7 +6,7 @@ const router = express.Router()
 
 class Upload {
   static async signS3(req, res, next) {
-    const s3 = new aws.s3()
+    const s3 = new aws.S3()
     const fileName = req.query['file-name']
     const fileType = req.query['file-type']
     const s3Params = {
