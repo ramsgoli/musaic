@@ -120,11 +120,12 @@
     margin:10px;
 }
 
+/*
+
+Vertically Stacked
+
 #vizandinstr{
     display: flex;
-   /* border-style: solid;
-    border-width: 2px;
-    border-color: #808080;*/
     align-items: center;
     flex-direction: column;
     justify-content: center;
@@ -151,6 +152,38 @@
     justify-content: center;
     align-items: center;
     padding: 10px 0px;
+}*/
+
+#vizandinstr{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 200px;
+    
+}
+
+#viz{
+    display: flex;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #808080;
+    width: 50%;
+    height:200px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#instruction{
+    display: flex;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #808080;
+    width: 50%;
+    height:200px;
+    justify-content: center;
+    align-items: center;
+
 }
 
 #spotify{
