@@ -1,4 +1,4 @@
-const aws = require('aws')
+const aws = require('aws-sdk')
 const express = require('express')
 const config = require('../../../config')
 
