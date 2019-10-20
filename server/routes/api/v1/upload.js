@@ -11,7 +11,7 @@ class Upload {
     const fileType = req.query['file-type']
     const s3Params = {
       Bucket: config.s3Bucket,
-      Key: fileName,
+      Key: `uploads/${fileName}`,
       ContentType: fileType,
       ACL: 'public-read'
     }
