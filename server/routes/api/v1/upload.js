@@ -25,8 +25,7 @@ class Upload {
         signedRequest: data,
         url: `https://${config.s3Bucket}.s3.amazonaws.com/uploads/${fileName}`
       }
-      res.write(JSON.stringify(returnData))
-      res.end()
+      res.send(returnData)
     })
   }
 }
