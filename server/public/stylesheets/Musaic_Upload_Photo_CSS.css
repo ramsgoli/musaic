@@ -158,7 +158,6 @@ Vertically Stacked
     width: 100%;
     justify-content: center;
     height: 200px;
-    
 }
 
 #viz{
@@ -185,13 +184,13 @@ Vertically Stacked
 
 }
 
-#upload_photo{
-     display: flex;
+#upload_photo_form{
+    display: flex;
     border-style: solid;
     border-width: 2px;
     border-color: #808080;
-    width: 10%;
-    justify-content: center;
+    width: 30%;
+    justify-content: space-between;
     align-items: center;
     margin-top: 50px;
     padding: 2.5px 10px;
