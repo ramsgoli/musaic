@@ -4,4 +4,18 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+  #top_container
+  nav.navbar
+    span#js-navbar-toggle.navbar-toggle
+      i.fas.fa-bars
+    a.logo(href='#') logo
+    ul#js-menu.main-nav
+      li
+        a.nav-links(href='#') Home
+      li
+        a.nav-links(href='#') About
+      li
+        a.nav-links(href='#') Blog
+      li
+        a.nav-links(href='#') Contact
     block content
