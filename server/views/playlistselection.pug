@@ -3,7 +3,7 @@ html
   head
     meta(charset='UTF-8')
     title Musaic
-    link(rel='stylesheet', href='/stylesheets/Musaic_Upload_Photo_CSS.css')
+    link(rel='stylesheet', href='Musaic_Playlist_Selection_CSS.css')
   body
     #top_container
       nav.navbar
@@ -28,9 +28,15 @@ html
               p Visualization
             #instruction
               p Instructions
-          form(id="upload_photo_form" enctype="multipart/form-data")
-            input(type="file" name="user_upload" id="file-input" required)
-            button(type="submit") Submit
-    script(src='/javascripts/upload.js')
-
-
+          #playlists Playlists
+              - 
+            .playlist_Col
+              - for (var i = 0; i <= #{playlists}.length; i+2) {
+                  - url =  playlists[i].images[0].url
+                    img.playlist_img(src=url)
+              - }
+            .playlist_Col
+              - for (var i = 1; i <= #{playlists}.length; i+2) {
+                  - url =  playlists[i].images[0].url
+                    img.playlist_img(src=url)
+              - }
