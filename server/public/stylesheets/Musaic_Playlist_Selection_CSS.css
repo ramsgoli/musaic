@@ -107,7 +107,7 @@
     border-color: #808080;
     align-items: center;
     justify-content:  center;
-    padding: 30px 0px;
+    padding: 0px 0px;
 }
 
 
@@ -204,10 +204,20 @@
 
 #playlists{
     display: flex;
+	flex-wrap: wrap;
     width: 100%;
+    padding-top: 30px;
+}
+
+img {
+    max-width: 50%;
+    margin-bottom: 30px;
+}
+
+#playlist_container {
+	flex: 50%;
+	display: flex;
     justify-content: center;
-    align-items: center;
-    padding-top: 20px;
 }
 
 

@@ -1,42 +1,21 @@
-doctype html
-html
-  head
-    meta(charset='UTF-8')
-    title Musaic
-    link(rel='stylesheet', href='Musaic_Playlist_Selection_CSS.css')
-  body
-    #top_container
-      nav.navbar
-        span#js-navbar-toggle.navbar-toggle
-          i.fas.fa-bars
-        a.logo(href='#') logo
-        ul#js-menu.main-nav
-          li
-            a.nav-links(href='#') Home
-          li
-            a.nav-links(href='#') About
-          li
-            a.nav-links(href='#') Blog
-          li
-            a.nav-links(href='#') Contact
-    #tc_ps_spacer
-    #ps_container
-      #ps_div
-        #col
-          #vizandinstr
-            #viz
-              p Visualization
-            #instruction
-              p Instructions
-          #playlists Playlists
-              - 
-            .playlist_Col
-              - for (var i = 0; i <= #{playlists}.length; i+2) {
-                  - url =  playlists[i].images[0].url
-                    img.playlist_img(src=url)
-              - }
-            .playlist_Col
-              - for (var i = 1; i <= #{playlists}.length; i+2) {
-                  - url =  playlists[i].images[0].url
-                    img.playlist_img(src=url)
-              - }
+extends layout
+
+block headContent
+	link(rel='stylesheet', href='/stylesheets/Musaic_Playlist_Selection_CSS.css')
+
+block content
+	#tc_ps_spacer
+	#ps_container
+		#ps_div
+			#col
+				#vizandinstr
+					#viz
+						p Visualization
+					#instruction
+						p Instructions
+				#playlists
+						-
+						each playlist in playlists
+							#playlist_container
+								img(src=playlist.images[0] ? playlist.images[0].url : "https://img.icons8.com/dotty/80/000000/cat-profile.png")
+

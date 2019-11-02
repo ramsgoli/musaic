@@ -3,6 +3,7 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    block headContent
   body
   #top_container
   nav.navbar
@@ -18,4 +19,4 @@ html
         a.nav-links(href='#') Blog
       li
         a.nav-links(href='#') Contact
-    block content
+  block content
