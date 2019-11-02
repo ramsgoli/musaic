@@ -1,6 +1,5 @@
 document.getElementById("upload_photo_form").addEventListener('submit', e => {
   e.preventDefault()
-  console.log("HERE")
   const files = document.getElementById('file-input').files
   const file = files[0]
   if(file == null){
@@ -10,8 +9,13 @@ document.getElementById("upload_photo_form").addEventListener('submit', e => {
 })
 
 async function getSignedRequest(file){
+  const filePrefix = getRandomChars(6)
+  const fileName = `${filePrefix}/${file.name}`
+
+  // set filename globally so we can access it in the call to the lambda function
+  window.fileName = fileName
   try {
-    const response = await fetch(`/api/v1/upload/sign-s3?file-name=${file.name}&file-type=${file.type}`)
+    const response = await fetch(`/api/v1/upload/sign-s3?file-name=${fileName}&file-type=${file.type}`)
     if (response.status == 200) {
       const data = await response.json()
       return uploadFile(file, data.signedRequest, data.url) 
@@ -21,17 +25,28 @@ async function getSignedRequest(file){
   }
 }
 
-async function uploadFile(file, signedRequest, url){
+async function uploadFile(file, signedRequest, url) {
   try {
     const response = await fetch(signedRequest, {
       method: "PUT",
       body: file
     })
-    if (response.status === 200) {
-      console.log("Your photo was uploaded successfully")
-      alert('redirecting your ass')
+    if (response.status != 200) {
+      throw new Error()
     }
   } catch (err) {
-    return alertt("Couldn't Upload file")
+    return alert("Couldn't Upload file")
   }
+}
+
+function getRandomChars(n) {
+  let output = ""
+  const chars = "abcdefghijklmnopqrstuvwxyz"
+
+  for (let i = 0; i < n; i++) {
+    char = chars[Math.floor(Math.random() * chars.length)]
+    output += char
+  }
+
+  return output
 }
