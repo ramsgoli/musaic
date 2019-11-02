@@ -1,21 +1,21 @@
 extends layout
 
 block headContent
-	link(rel='stylesheet', href='/stylesheets/Musaic_Playlist_Selection_CSS.css')
+  link(rel='stylesheet', href='/stylesheets/Musaic_Playlist_Selection_CSS.css')
 
 block content
-	#tc_ps_spacer
-	#ps_container
-		#ps_div
-			#col
-				#vizandinstr
-					#viz
-						p Visualization
-					#instruction
-						p Instructions
-				#playlists
-						-
-						each playlist in playlists
-							#playlist_container
-								img(src=playlist.images[0] ? playlist.images[0].url : "https://img.icons8.com/dotty/80/000000/cat-profile.png")
+  #tc_ps_spacer
+  #ps_container
+    #ps_div
+      #col
+        #vizandinstr
+          #viz
+            p Visualization
+          #instruction
+            p Instructions
+        #playlists
+            -
+            each playlist in playlists
+              #playlist_container
+                img(src=playlist.images[0] ? playlist.images[0].url : "https://img.icons8.com/dotty/80/000000/cat-profile.png")
 
