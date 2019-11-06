@@ -12,8 +12,9 @@ async function getSignedRequest(file){
   const filePrefix = getRandomChars(6)
   const fileName = `${filePrefix}/${file.name}`
 
-  // set filename globally so we can access it in the call to the lambda function
-  window.fileName = fileName
+  // store filename in session so we can access it in the call to the lambda function
+  sessionStorage.setItem("fileName", fileName)
+  sessionStorage.setItem()
   try {
     const response = await fetch(`/api/v1/upload/sign-s3?file-name=${fileName}&file-type=${file.type}`)
     if (response.status == 200) {
