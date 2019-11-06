@@ -1,4 +1,5 @@
 var express = require('express')
+const _ = require('lodash')
 var router = express.Router()
 const { createAuthenticatedSpotifyApi } = require('../../spotify')
 
@@ -47,10 +48,22 @@ class PublicRouter {
   static async playlistSelection(req, res, next) {
     try {
       const data = await req.spotifyApi.getUserPlaylists({ limit: 50 })
-      console.log(data.body.items)
       res.render('playlistselection', { playlists: data.body.items })
     } catch (err) {
-      console.log(err)
+      console.error(err)
+      next(err)
+    }
+  }
+
+  static async confirmPlaylist(req, res, next) {
+    try {
+      const data = await req.spotifyApi.getPlaylist(req.params.id)
+      const name = data.body["name"]
+      const imageUrl = _.get(data, 'body.images[0].url', "https://img.icons8.com/dotty/80/000000/cat-profile.png")
+
+      return res.render('confirmplaylist', { name, imageUrl })
+    } catch (err) {
+      console.error(err)
       next(err)
     }
   }
@@ -65,6 +78,7 @@ router.get('/', PublicRouter.homepage)
 router.get('/getstarted', PublicRouter.getStarted)
 router.get('/uploadphoto', PublicRouter.uploadPhoto)
 router.get('/playlistselection', PublicRouter.middleware, PublicRouter.playlistSelection)
+router.get('/confirmplaylist/:id', PublicRouter.middleware, PublicRouter.confirmPlaylist)
 router.get('/result', PublicRouter.result)
 
 module.exports = router

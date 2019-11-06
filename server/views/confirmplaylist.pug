@@ -1,5 +1,12 @@
+extends layout
+
+block headContent
+  link(rel='stylesheet', href='/stylesheets/Musaic_Confirm_Playlist_CSS.css')
+
+block content
     #tc_ps_spacer
     #ps_container
       #playlist_image
-      p#playlist_name TESTING 123
+        img(src=imageUrl)
+      p#playlist_name #{name}
       button(type='submit', form='nameform', value='Submit') Generate Musaic

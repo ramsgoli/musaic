@@ -1,55 +1,23 @@
-doctype html
-head
-  meta(charset='UTF-8')
-  title Musaic
-  link(rel='stylesheet' href='Musaic_Playlist_Selection_CSS.css')
-  link(rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Muli')
-  script(src='navbar.js')
-#top_container
-  nav.flexmenu
-    .flex
-      img#logo(src='bluenotelogo.png')
-      .menu
-        a(href='#') Home
-      .menu
-        a(href='#') About
-      .menu
-        a(href='#') Contact
-      .mobile-menu
-        span.menu-icon.open &equiv;
-        span.menu-icon.close &#x2715;
-#ps_container
-  #ps_div
-    #col
-      #vizandinstr
-        #viz
-          img(src='Select_Playlist_Icon.png')
-        #instruction
-          h1(style='margin: 0px 0px 10px;') Select Playlist
-          p(style='font-size: 20px; margin: 0px;')
-            | From the playlist you select, 
-            br
-            |                     we will take the album covers  
-            br
-            |                     from the different songs and 
-            br
-            |                     use them as the &ldquo;tiles&rdquo; 
-            br
-            |                     of your Musaic.
-#Gallery_Container
-  h1#Your_Playlists(style='text-align: center;') Your Playlists
-  #Gallery
-    #Gallery_Col
-      .Gallery_Boxes
-        p Gallery 1
-      .Gallery_Boxes
-        p Gallery 3
-      .Gallery_Boxes
-        p Gallery 5
-    #Gallery_Col
-      .Gallery_Boxes
-        p Gallery 2
-      .Gallery_Boxes
-        p Gallery 4
-      .Gallery_Boxes
-        p Gallery 6
+extends layout
+
+block headContent
+  link(rel='stylesheet', href='/stylesheets/Musaic_Playlist_Selection_CSS.css')
+
+block content
+  #tc_ps_spacer
+  #ps_container
+    #ps_div
+      #col
+        #vizandinstr
+          #viz
+            p Visualization
+          #instruction
+            p Instructions
+        #playlists
+            -
+            each playlist in playlists
+              #playlist_container
+                a(href=`/confirmplaylist/${playlist.id}`)
+                  img(src=playlist.images[0] ? playlist.images[0].url : "https://img.icons8.com/dotty/80/000000/cat-profile.png")
+                  p #{playlist.name}
+

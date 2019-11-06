@@ -122,25 +122,14 @@
 
 #buttons{
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    width: 50%;
+		justify-content: center;
 }
 
-#generate_musaic{
-  display: flex;
-  height:75px;
-  width:200px;
-  border-style: none;
-  background-color: #00BEE4;
-  font-size: 20px;
-  font-weight: bold;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-    -webkit-box-shadow: rgba(0, 190, 228) 0 3px 4px;
-    -moz-box-shadow: rgba(0, 190, 228) 0 3px 4px;
-    box-shadow: rgba(0, 190, 228) 0 3px 4px;
+img {
+    max-width: 75%;
 }
+
 
 
 
