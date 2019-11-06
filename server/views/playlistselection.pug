@@ -18,4 +18,5 @@ block content
             each playlist in playlists
               #playlist_container
                 img(src=playlist.images[0] ? playlist.images[0].url : "https://img.icons8.com/dotty/80/000000/cat-profile.png")
+                p #{playlist.name}
 

@@ -211,13 +211,14 @@
 
 img {
     max-width: 50%;
-    margin-bottom: 30px;
 }
 
 #playlist_container {
 	flex: 50%;
 	display: flex;
-    justify-content: center;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
 }
 
 
