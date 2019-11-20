@@ -1,6 +1,9 @@
-
+*{
+	font-family: Muli;
+	background-color: #00BEE4;
+	color:#ffffff;
+}
 #top_container{
-	 /*justify-content: space-around;*/
 	 width: 100%;
 	 box-sizing: border-box;
     padding: 0;
@@ -8,9 +11,7 @@
 }
 
 .navbar {
-            font-size: 18px;
-            background-image: linear-gradient(260deg, #2376ae 0%, #c16ecf 100%);
-            border: 1px solid rgba(0, 0, 0, 0.2);
+            font-size: 28px;
             padding-bottom: 10px;
         }
 
@@ -30,13 +31,12 @@
             margin: 15px auto;
         }
 
-        .logo {
-            display: inline-block;
-            font-size: 22px;
+        #logo{
+        	width:100px;
+            height:100px;
             margin-top: 10px;
-            margin-left: 20px;
+            margin-left: 10px;
         }
-
         .navbar-toggle {
             position: absolute;
             top: 10px;
@@ -74,10 +74,6 @@
                 margin-left: 40px;
             }
 
-            .logo {
-                margin-top: 0;
-            }
-
             .navbar-toggle {
                 display: none;
             }
@@ -103,9 +99,9 @@
 
 #Gen{
 	display: flex;
-	border-style: solid;
+/*	border-style: solid;
 	border-width: 2px;
-	border-color: #808080;
+	border-color: #808080;*/
 	max-width: 100%;
 	height:200px;
 	justify-content: center;
@@ -116,18 +112,40 @@
 
 }
 
-#MS{
+#Create_Musaic{
+	height: 26.25%;
+	width:40%;
+	border-style: none;
+	background-color: #ffffff;
+	color:#00BEE4;
+	font-weight: bold;
+	font-size: 20px;
+	-webkit-box-shadow: 0 9px 8px -4px white;
+	   -moz-box-shadow: 0 9px 8px -4px white;
+	        box-shadow: 0 9px 8px -4px white;
+}
+
+#MS {
 	display: flex;
-	border-style: solid;
+/*	border-style: solid;
 	border-width: 2px;
-	border-color: #808080;
+	border-color: #808080;*/
 	max-width: 100%;
 	height:200px;
 	justify-content: center;
 	align-items: center;
 	flex-grow: 1;
 	flex-basis: 0;
+	align-items: center;
+	flex-direction: column;
+	/*margin: auto;*/
+    text-align: center; 
 
+}
+
+#MS_Text{
+	  margin:0px;
+	  font-size: 20px;
 }
 
 #GenandMS_Gallery_spacer{
@@ -138,6 +156,7 @@
 #Gallery_Container{
 	display: flex;
 	width: 100%;
+	height: 500px;
 	align-items: center;
 	flex-direction: column;
 }
@@ -166,6 +185,7 @@
 #Gallery_Col1{
 	display: flex;
 	width: 100%;
+	height: 500px;
 	align-items: center;
 	flex-direction: column;
 	flex:initial;
@@ -177,6 +197,7 @@
 #Gallery_Col2{
 	display: flex;
 	width: 100%;
+	height: 500px;
 	align-items: center;
 	flex-direction: column;
 	flex:initial;
@@ -191,10 +212,9 @@
 	border-style: solid;
 	border-width: 2px;
 	border-color: #808080;
-	/*width:30%;
-	height:150px;*/
-	width:300px;
-	height:300px;
+	width:1000%
+	/*width:50%;
+	height:300px;*/
 	justify-content: center;
 	align-items: center;
 	margin:10px;
