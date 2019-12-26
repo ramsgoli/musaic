@@ -107,7 +107,7 @@
     border-color: #808080;
     align-items: center;
     justify-content:  center;
-    padding: 0px 0px;
+    padding: 30px 0px;
 }
 
 
@@ -120,8 +120,11 @@
     margin:10px;
 }
 
-/*#vizandinstr{
+#vizandinstr{
     display: flex;
+   /* border-style: solid;
+    border-width: 2px;
+    border-color: #808080;*/
     align-items: center;
     flex-direction: column;
     justify-content: center;
@@ -148,38 +151,6 @@
     justify-content: center;
     align-items: center;
     padding: 10px 0px;
-}*/
-
-#vizandinstr{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    height: 200px;
-    
-}
-
-#viz{
-    display: flex;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #808080;
-    width: 50%;
-    height:200px;
-    justify-content: center;
-    align-items: center;
-
-}
-
-#instruction{
-    display: flex;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #808080;
-    width: 50%;
-    height:200px;
-    justify-content: center;
-    align-items: center;
-
 }
 
 #search{
@@ -200,25 +171,6 @@
     background-size: 20px 20px;
     padding-left: 35px;
 
-}
-
-#playlists{
-    display: flex;
-	flex-wrap: wrap;
-    width: 100%;
-    padding-top: 30px;
-}
-
-img {
-    max-width: 50%;
-}
-
-#playlist_container {
-	flex: 50%;
-	display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
 }
 
 

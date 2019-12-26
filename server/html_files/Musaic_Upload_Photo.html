@@ -4,51 +4,66 @@
 <meta charset="UTF-8">
 <title>Musaic</title>
   <link rel="stylesheet" href="Musaic_Upload_Photo_CSS.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Muli" />
+  <script src="navbar.js"></script>
 </head>
 
 <body>
 <div id="top_container">
 
-
-<nav class="navbar">
-        <span class="navbar-toggle" id="js-navbar-toggle">
-            <i class="fas fa-bars"></i>
-        </span>
-        <a href="#" class="logo">logo</a>
-        <ul class="main-nav" id="js-menu">
-            <li>
-                <a href="#" class="nav-links">Home</a>
-            </li>
-            <li>
-                <a href="#" class="nav-links">About</a>
-            </li>
-             <li>
-                <a href="#" class="nav-links">Blog</a>
-            </li>
-            <li>
-                <a href="#" class="nav-links">Contact</a>
-            </li>
-           
-        </ul>
-    </nav>
+<nav class="flexmenu">
+  <div class="flex">
+    <img id="logo" src="bluenotelogo.png">
+    <div class="menu">
+      <a href="#">Home</a>
+    </div>
+    <div class="menu">
+      <a href="#">About</a>
+    </div>
+    <div class="menu">
+      <a href="#">Contact</a>
+    </div>
+    <div class="mobile-menu">
+      <span class="menu-icon open">&#x2261;</span>
+      <span class="menu-icon close">&#x2715;</span>
+    </div>
+  </div>
+</nav>
 
 </div>
 
-<div id="tc_ps_spacer"></div>
 
 <div id="ps_container">
     <div id ="ps_div">
         <div id="col">
 
             <div id="vizandinstr">
-                <div id="viz"><p>Visualization</p></div>
-                <div id="instruction"><p>Instructions</p></div>
+                <div id="viz"><img src="Upload_Photo_Icon.png"></div>
+                <div id="instruction">
+                    <h1 style="margin: 0px 0px 10px;">Upload Photo</h1>
+                <p style="font-size: 20px; margin: 0px;">We take the cover images <br>
+                    from you playlists and <br>
+                    we render your photo<br>
+                    using the cover images
+                </p>
+                </div>
             </div>
 
-            <div id="upload_photo"><p>Upload Photo</p></div>
+            <button id="upload_photo">Upload Photo</button>
 
         </div>
     </div>
+</div>
+
+<div id="good_photos">
+    <h1 style="text-align: center;">Can’t find a personal photo? <br>
+    Try these!</h1>
+    <div id="good_photos_row">
+        <div class="Gallery_Boxes"><p>Gallery 1</p></div>
+        <div class="Gallery_Boxes"><p>Gallery 3</p></div>
+        <div class="Gallery_Boxes"><p>Gallery 5</p></div>
+    </div>
+    
 </div>
 
 
@@ -56,3 +71,4 @@
 </body>
 
 </html>
+

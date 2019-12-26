@@ -1,36 +1,49 @@
 doctype html
-html
-  head
-    meta(charset='UTF-8')
-    title Musaic
-    link(rel='stylesheet', href='/stylesheets/Musaic_Upload_Photo_CSS.css')
-  body
-    #top_container
-      nav.navbar
-        span#js-navbar-toggle.navbar-toggle
-          i.fas.fa-bars
-        a.logo(href='#') logo
-        ul#js-menu.main-nav
-          li
-            a.nav-links(href='#') Home
-          li
-            a.nav-links(href='#') About
-          li
-            a.nav-links(href='#') Blog
-          li
-            a.nav-links(href='#') Contact
-    #tc_ps_spacer
-    #ps_container
-      #ps_div
-        #col
-          #vizandinstr
-            #viz
-              p Visualization
-            #instruction
-              p Instructions
-          form(id="upload_photo_form" enctype="multipart/form-data")
-            input(type="file" name="user_upload" id="file-input" required)
-            button(type="submit") Submit
-    script(src='/javascripts/upload.js')
-
-
+head
+  meta(charset='UTF-8')
+  title Musaic
+  link(rel='stylesheet' href='Musaic_Upload_Photo_CSS.css')
+  link(rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Muli')
+  script(src='navbar.js')
+#top_container
+  nav.flexmenu
+    .flex
+      img#logo(src='bluenotelogo.png')
+      .menu
+        a(href='#') Home
+      .menu
+        a(href='#') About
+      .menu
+        a(href='#') Contact
+      .mobile-menu
+        span.menu-icon.open &equiv;
+        span.menu-icon.close &#x2715;
+#ps_container
+  #ps_div
+    #col
+      #vizandinstr
+        #viz
+          img(src='Upload_Photo_Icon.png')
+        #instruction
+          h1(style='margin: 0px 0px 10px;') Upload Photo
+          p(style='font-size: 20px; margin: 0px;')
+            | We take the cover images 
+            br
+            |                     from you playlists and 
+            br
+            |                     we render your photo
+            br
+            |                     using the cover images
+      button#upload_photo Upload Photo
+#good_photos
+  h1(style='text-align: center;')
+    | Can&rsquo;t find a personal photo?&#x2028;
+    br
+    |     Try these!
+  #good_photos_row
+    .Gallery_Boxes
+      p Gallery 1
+    .Gallery_Boxes
+      p Gallery 3
+    .Gallery_Boxes
+      p Gallery 5
