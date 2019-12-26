@@ -1,22 +1,20 @@
 doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    block headContent
-  body
-  #top_container
-  nav.navbar
-    span#js-navbar-toggle.navbar-toggle
-      i.fas.fa-bars
-    a.logo(href='#') logo
-    ul#js-menu.main-nav
-      li
-        a.nav-links(href='#') Home
-      li
-        a.nav-links(href='#') About
-      li
-        a.nav-links(href='#') Blog
-      li
-        a.nav-links(href='#') Contact
-  block content
+head
+  meta(charset='UTF-8')
+  title Musaic
+  link(rel='stylesheet' href='Musaic_Homepage_CSS.css')
+  link(rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Muli')
+  script(src='navbar.js')
+#top_container
+  nav.flexmenu
+    .flex
+      img#logo(src='bluenotelogo.png')
+      .menu
+        a(href='#') Home
+      .menu
+        a(href='#') About
+      .menu
+        a(href='#') Contact
+      .mobile-menu
+        span.menu-icon.open &equiv;
+        span.menu-icon.close &#x2715;
