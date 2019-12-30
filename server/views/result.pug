@@ -1,37 +1,52 @@
 doctype html
-html
-  head
-    meta(charset='UTF-8')
-    title Musaic
-    link(rel='stylesheet', href='/stylesheets/Musaic_Results_CSS.css')
-  body
-    #top_container
-      nav.navbar
-        span#js-navbar-toggle.navbar-toggle
-          i.fas.fa-bars
-        a.logo(href='#') logo
-        ul#js-menu.main-nav
-          li
-            a.nav-links(href='#') Home
-          li
-            a.nav-links(href='#') About
-          li
-            a.nav-links(href='#') Blog
-          li
-            a.nav-links(href='#') Contact
-    #tc_ps_spacer
-    #result_container
-      #result
-        // INSERT IMG HERE
-    #buttons
-      #post
-        p Post
-      #download
-        p Download
-    #share_container
-      p#share Share
-      #social_media
-        img(src='facebook_icon.png')
-        img(src='instagram_icon.png')
-        img(src='twitter_icon.png')
-
+head
+  meta(charset='UTF-8')
+  title Musaic
+  link(rel='stylesheet' href='Musaic_Results_CSS.css')
+  link(rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Muli')
+  script(src='navbar.js')
+#top_container
+  nav.flexmenu
+    .flex
+      img#logo(src='bluenotelogo.png')
+      .menu
+        a(href='#') Home
+      .menu
+        a(href='#') About
+      .menu
+        a(href='#') Contact
+      .mobile-menu
+        span.menu-icon.open &equiv;
+        span.menu-icon.close &#x2715;
+#result_container
+  h1 Your Musaic
+  #result
+    // INSERT IMG HERE
+#albums_used
+  h1 Album Covers Used
+  #cover_display
+    .Gallery_Boxes
+      p Album 1
+    .Gallery_Boxes
+      p Album 2
+    .Gallery_Boxes
+      p Album 3
+    .Gallery_Boxes
+      p Album 4
+  #cover_display
+    .Gallery_Boxes
+      p Album 5
+    .Gallery_Boxes
+      p Album 6
+    .Gallery_Boxes
+      p Album 7
+    .Gallery_Boxes
+      p Album 8
+#buttons
+  #download Download
+#share_container
+  h1 Share
+  #social_media
+    img(src='facebook_icon.png')
+    img(src='instagram_icon.png')
+    img(src='twitter_icon.png')

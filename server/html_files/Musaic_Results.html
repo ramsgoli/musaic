@@ -4,52 +4,66 @@
 <meta charset="UTF-8">
 <title>Musaic</title>
   <link rel="stylesheet" href="Musaic_Results_CSS.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Muli" />
+  <script src="navbar.js"></script>
 </head>
 
 <body>
 <div id="top_container">
 
-
-<nav class="navbar">
-        <span class="navbar-toggle" id="js-navbar-toggle">
-            <i class="fas fa-bars"></i>
-        </span>
-        <a href="#" class="logo">logo</a>
-        <ul class="main-nav" id="js-menu">
-            <li>
-                <a href="#" class="nav-links">Home</a>
-            </li>
-            <li>
-                <a href="#" class="nav-links">About</a>
-            </li>
-             <li>
-                <a href="#" class="nav-links">Blog</a>
-            </li>
-            <li>
-                <a href="#" class="nav-links">Contact</a>
-            </li>
-           
-        </ul>
-    </nav>
+<nav class="flexmenu">
+  <div class="flex">
+    <img id="logo" src="bluenotelogo.png">
+    <div class="menu">
+      <a href="#">Home</a>
+    </div>
+    <div class="menu">
+      <a href="#">About</a>
+    </div>
+    <div class="menu">
+      <a href="#">Contact</a>
+    </div>
+    <div class="mobile-menu">
+      <span class="menu-icon open">&#x2261;</span>
+      <span class="menu-icon close">&#x2715;</span>
+    </div>
+  </div>
+</nav>
 
 </div>
 
-<div id="tc_ps_spacer"></div>
 
 <div id="result_container">
+    <h1>Your Musaic</h1>
     <div id ="result">
        <!-- INSERT IMG HERE -->
     </div>
 </div>
 
+<div id="albums_used">
+    <h1>Album Covers Used</h1>
+    <div id ="cover_display">
+        <div class="Gallery_Boxes"><p>Album 1</p></div>
+        <div class="Gallery_Boxes"><p>Album 2</p></div>
+        <div class="Gallery_Boxes"><p>Album 3</p></div>
+        <div class="Gallery_Boxes"><p>Album 4</p></div>
+    </div>
+     <div id ="cover_display">
+        <div class="Gallery_Boxes"><p>Album 5</p></div>
+        <div class="Gallery_Boxes"><p>Album 6</p></div>
+        <div class="Gallery_Boxes"><p>Album 7</p></div>
+        <div class="Gallery_Boxes"><p>Album 8</p></div>
+    </div>
+</div>
+
+
 <div id="buttons">
-     <div id="post"><p>Post</p></div>
-    <div id="download"><p>Download</p></div>
+    <div id="download">Download</div>
 </div>
 
 <div id="share_container">
 
-    <p id="share">Share</p>
+    <h1>Share</h1>
 
     <div id="social_media">
         <img src="facebook_icon.png">
