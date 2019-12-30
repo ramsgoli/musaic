@@ -66,7 +66,6 @@ def lambda_handler(event, context):
     image_data = event["image_data"]
     access_token = event["access_token"]
 
-    # get all album covers in this playlist id
     sp = spotipy.Spotify(auth=access_token)
     
     # get all unique album ideas 

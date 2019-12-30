@@ -14,19 +14,18 @@ async function getSignedRequest(file){
 
   // store filename in session so we can access it in the call to the lambda function
   sessionStorage.setItem("fileName", fileName)
-  sessionStorage.setItem()
   try {
     const response = await fetch(`/api/v1/upload/sign-s3?file-name=${fileName}&file-type=${file.type}`)
     if (response.status == 200) {
       const data = await response.json()
-      return uploadFile(file, data.signedRequest, data.url) 
+      return uploadFile(file, data.signedRequest) 
     }
   } catch (err) {
     return alert("Please try again later")
   }
 }
 
-async function uploadFile(file, signedRequest, url) {
+async function uploadFile(file, signedRequest) {
   try {
     const response = await fetch(signedRequest, {
       method: "PUT",
@@ -35,6 +34,7 @@ async function uploadFile(file, signedRequest, url) {
     if (response.status != 200) {
       throw new Error()
     }
+    window.location.replace("/playlistselection")
   } catch (err) {
     return alert("Couldn't Upload file")
   }
