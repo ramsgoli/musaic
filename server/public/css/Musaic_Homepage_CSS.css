@@ -57,7 +57,6 @@
   justify-content: space-between;
   color: #fff;
   text-decoration: none;
-  /*padding:0 0.5em;*/
 }
 
 .mobile-menu {
@@ -174,6 +173,7 @@
 #MS_Text{
 	  margin:0px;
 	  font-size: 30px;
+	  width: 75%
 }
 
 @media screen and (max-width: 600px) { 
