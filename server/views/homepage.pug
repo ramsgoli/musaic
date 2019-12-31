@@ -1,12 +1,12 @@
-extends layout.pug
+extends layout
 
-append head
+block headContent
   link(rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Muli')
-  link(rel='stylesheet' href='Musaic_Homepage_CSS.css')
+  link(rel='stylesheet' href='/css/Musaic_Homepage_CSS.css')
 
-block content
+block bodyContent
   #GenandMS
-    img#center_logobw(src='logobw.png')
+    img#center_logobw(src='/images/logobw.png')
     button#Create_Musaic Create Musaic
   #MS
     h1 Misson
@@ -19,7 +19,7 @@ block content
       span(style='color:#00BEE4') art
       |  piece 
       br
-      |             that displays their 
+      |that displays their 
       span(style='color:#00BEE4') musical
       |  tastes through a personal 
       span(style='color:#00BEE4') mosaic
@@ -40,3 +40,6 @@ block content
         .Gallery_Boxes
           p Gallery 2
         .Gallery_Boxes
+          p Gallery 4
+        .Gallery_Boxes
+          p Gallery 6

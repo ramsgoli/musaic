@@ -1,19 +1,23 @@
 doctype html
 html
-  meta(charset='UTF-8')
-  title Musaic
-  script(src='navbar.js')
+  head
+    meta(charset='UTF-8')
+    title Musaic
+    script(src='/javascripts/navbar.js')
+    block headContent
+
   body
     #top_container
-    nav.flexmenu
-      .flex
-        img#logo(src='bluenotelogo.png')
-        .menu
-          a(href='#') Home
-        .menu
-          a(href='#') About
-        .menu
-          a(href='#') Contact
-        .mobile-menu
-          span.menu-icon.open ≡
-          span.menu-icon.close ✕
+      nav.flexmenu
+        .flex
+          img#logo(src='/images/bluenotelogo.png')
+          .menu
+            a(href='#') Home
+          .menu
+            a(href='#') About
+          .menu
+            a(href='#') Contact
+          .mobile-menu
+            span.menu-icon.open ≡
+            span.menu-icon.close ✕
+    block bodyContent
