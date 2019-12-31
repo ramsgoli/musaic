@@ -1,11 +1,12 @@
-extends layout.pug
+  extends layout
 
-block head
-  link(rel='stylesheet' href='Musaic_Confirm_Playlist_CSS.css')
+block headContent
+  link(rel='stylesheet', href='/css/Musaic_Confirm_Playlist_CSS.css')
 
-block content    
+block bodyContent  
 	#result_container
   		#result
     		// INSERT IMG HERE
+  		div Playlist Name
 	#buttons
   		#generate_musaic Generate Musaic
