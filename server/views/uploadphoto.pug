@@ -4,30 +4,30 @@ block headContent
   link(rel='stylesheet', href='/css/Musaic_Upload_Photo_CSS.css')
 
 block bodyContent
-#ps_container
-  #ps_div
-    #col
-      #vizandinstr
-        #viz
-          img(src='../public/images/Upload_Photo_Icon.png')
-        #instruction
-          h1(style='margin: 0px 0px 10px;') Upload Photo
-          p(style='font-size: 20px; margin: 0px;width: 63%')
-            | We take the album cover images
-            | from your playlists and
-            | we render your photo
-            | using the album cover images as tiles
-      button#upload_photo Upload Photo
-#good_photos
-  h1(style='text-align: center;')
-    | Can&rsquo;t find a personal photo?&#x2028;
-    br
-    |     Try these!
-  #good_photos_row
-    .Gallery_Boxes
-      p Gallery 1
-    .Gallery_Boxes
-      p Gallery 2
-    .Gallery_Boxes
-      p Gallery 3
+  #ps_container
+    #ps_div
+      #col
+        #vizandinstr
+          #viz
+            img(src='/images/Upload_Photo_Icon.png')
+          #instruction
+            h1(style='margin: 0px 0px 10px;') Upload Photo
+            p(style='font-size: 20px; margin: 0px;width: 63%')
+              | We take the album cover images
+              | from your playlists and
+              | we render your photo
+              | using the album cover images as tiles
+        button#upload_photo Upload Photo
+  #good_photos
+    h1(style='text-align: center;')
+      | Can&rsquo;t find a personal photo?&#x2028;
+      br
+      |     Try these!
+    #good_photos_row
+      .Gallery_Boxes
+        p Gallery 1
+      .Gallery_Boxes
+        p Gallery 2
+      .Gallery_Boxes
+        p Gallery 3
 
