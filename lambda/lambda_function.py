@@ -93,14 +93,14 @@ def lambda_handler(event, context):
       str = base64.b64encode(imageFile.read())
       encoded_img = str.decode("utf-8")
 
-    print(encoded_img)
     # clean up
-    #shutil.rmtree(temp_dir)
+    shutil.rmtree(temp_dir)
 
     return {
-	"isBase64Encoded": True,
-	"statusCode": 200,
-	"headers": { "content-type": "image/jpeg"},
+      "isBase64Encoded": True,
+      "statusCode": 200,
+      "headers": { "content-type": "image/jpeg"},
+      "body":  encoded_img
     }
 
 if __name__ == '__main__':
