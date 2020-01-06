@@ -7,6 +7,7 @@ from os import listdir, path, rename
 import shutil
 from mosaic import mosaic
 import base64
+import boto3
 
 def download_album_cover_func(url, directory):
     file_name = url.split("/")[-1]
@@ -60,7 +61,15 @@ def write_photo_data_to_file(file_data, temp_dir):
 
     return file_path
 
+def get_image_from_s3(image_key):
+    client = boto3.resource('s3')
+    bucket = client.Bucket('musaic')
+    with open('input_image.jpg', 'wb') as f:
+        bucket.download_fileobj('photo.jpg', f)
 
+
+    
+    
 def lambda_handler(event, context):
     playlist_id = event["playlist_id"]
     image_data = event["image_data"]
@@ -92,3 +101,5 @@ def lambda_handler(event, context):
 	"body":  encoded_img
     }
 
+if __name__ == '__main__':
+    get_image_from_s3('test')
