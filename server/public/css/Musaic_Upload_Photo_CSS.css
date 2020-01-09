@@ -1,13 +1,13 @@
 *{
-    font-family: Muli;
-    background-color: #373737;
-    color:#ffffff;
+  font-family: Muli;
+  background-color: #373737;
+  color:#ffffff;
     box-sizing: border-box;
 }
 #top_container{
-    width: 100%;
-    height:200px;
-    box-sizing: border-box;
+  width: 100%;
+  height:200px;
+  box-sizing: border-box;
     padding: 0;
     margin: 0;
 }
@@ -35,7 +35,8 @@
   align-items: flex-start;
   margin-left: 0;
   margin-right: auto;
-        }
+ cursor: pointer;
+ }
 
 .menu {
   display: none;
@@ -57,7 +58,6 @@
   justify-content: space-between;
   color: #fff;
   text-decoration: none;
-  /*padding:0 0.5em;*/
 }
 
 .mobile-menu {
@@ -76,8 +76,8 @@
 }
 
 .close{
-    display: flex;
-    font-size: 275%;
+  display: flex;
+  font-size: 275%;
 }
 
 .hide {
@@ -102,6 +102,7 @@
     width: 10vw;
   }
 }
+
 
  @media screen and (max-width: 900px) { 
     #logo{
