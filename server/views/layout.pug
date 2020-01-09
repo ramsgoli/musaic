@@ -6,13 +6,17 @@ html
     title Musaic
     link(rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Muli')
     script(src='/javascripts/navbar.js')
+    script(type='text/javascript').
+      function home(){
+      location.href = "Musaic_Homepage.html";
+      }
     block headContent
 
   body
     #top_container
       nav.flexmenu
         .flex
-          img#logo(src='/images/bluenotelogo.png')
+          img#logo(src='../public/images/bluenotelogo.png' onclick='home();')
           .menu
             a(href='/') Home
           .menu
