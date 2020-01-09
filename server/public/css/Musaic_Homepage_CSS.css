@@ -110,6 +110,14 @@
 	align-items: center;
 }
 
+#GenandMS p{
+	font-size: 100%;
+}
+
+#spotify_logo{
+	width:200px;
+}
+
 #center_logobw{
 	width: 30%;
   	height: 30%;
@@ -131,7 +139,7 @@
 
 @media screen and (max-width: 700px){
 	#logo{
-		width:30%;
+		/*width:30%;*/
   		height:20%;
 	}
 }
@@ -149,10 +157,6 @@
  -webkit-box-shadow: rgba(0, 190, 228) 0 3px 4px;
   -moz-box-shadow: rgba(0, 190, 228) 0 3px 4px;
   box-shadow: rgba(0, 190, 228) 0 3px 4px;
-
-	/*-webkit-box-shadow: 0 9px 8px -4px #00BEE4;
-	   -moz-box-shadow: 0 9px 8px -4px #00BEE4;
-	        box-shadow: 0 9px 8px -4px #00BEE4;*/
 }
 
 
@@ -240,7 +244,7 @@
 	border-style: solid;
 	border-width: 2px;
 	border-color: #808080;
-	width:1000%
+	width:75%;
 	/*width:50%;
 	height:300px;*/
 	justify-content: center;
@@ -248,5 +252,7 @@
 	margin:10px;
 }
 
-
+.Gallery_Boxes img{
+	padding: 50px;
+}
 
