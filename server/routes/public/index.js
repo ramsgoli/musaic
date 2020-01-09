@@ -45,6 +45,14 @@ class PublicRouter {
     res.render('uploadphoto')
   }
 
+  static loading(_, res) {
+    res.render('loading')
+  }
+
+  static about(_, res) {
+    res.render('about')
+  }
+
   static async playlistSelection(req, res, next) {
     try {
       const data = await req.spotifyApi.getUserPlaylists({ limit: 50 })
@@ -79,6 +87,8 @@ router.get('/', PublicRouter.homepage)
 router.get('/uploadphoto', PublicRouter.uploadPhoto)
 router.get('/playlistselection', PublicRouter.middleware, PublicRouter.playlistSelection)
 router.get('/confirmplaylist/:id', PublicRouter.middleware, PublicRouter.confirmPlaylist)
+router.get('/loading', PublicRouter.loading)
 router.get('/result', PublicRouter.result)
+router.get('/about', PublicRouter.about)
 
 module.exports = router
