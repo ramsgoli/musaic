@@ -59,7 +59,7 @@ def write_photo_data_to_file(file_data, temp_dir):
     return file_path
 
 def get_image_from_s3(image_key):
-    INPUT_IMAGE = 'input_image.jpg'
+    INPUT_IMAGE = '/tmp/input_image.jpg'
 
     client = boto3.resource('s3')
     bucket = client.Bucket('musaic')
@@ -107,7 +107,7 @@ if __name__ == '__main__':
     event = {
         "playlist_id": "1tzytA4QOHs4HYfIcOGsNV",
         "file_name": "photo.jpg",
-        "access_token": "BQDjVaNEhOhqHHWAvLUcz81RGgDJBBIy85iCD5A8WBQ173UP_OS2Shr1H-3VEpldzvorx6-5TUUAs6ZUisrfQo4sWvVd2zeRdYq1SPt-CHVkpzOWR1cgb0l7NcKeaUh8TRJAEdqVW9bxTCalXmuvOcK9vcQJxXN9xAES7tNOh_kPYM9QVDhALA"
+        "access_token": "BQCcTAGL2vTALQGrK3Mq8ofVYjlOUIR04EQBqmI6R_vFM4lt5ryYoxbvhE-kOMDEH7zImixFdLID2AnsQcHfYhfVcqeNQ62X4WW39bwwq1hpeI89pqszDplu3y7rWMnooSecEusOp6-erey4OMyiU-ixOyX-I7ZUNGswX0faII1fsux500q9Mg"
     }
     context = "context"
     lambda_handler(event, context)

@@ -1,12 +1,12 @@
 import sys
 import os
 from PIL import Image
-from multiprocessing import Process, Queue, cpu_count
+from multiprocessing import Process, Queue, cpu_count, Pipe
 
 # Change these 3 config parameters to suit your needs...
-TILE_SIZE      = 100        # height/width of mosaic tiles in pixels
+TILE_SIZE      = 50        # height/width of mosaic tiles in pixels
 TILE_MATCH_RES = 5        # tile matching resolution (higher values give better fit but require more processing)
-ENLARGEMENT    = 3        # the mosaic image will be this many times wider and taller than the original
+ENLARGEMENT    = 8        # the mosaic image will be this many times wider and taller than the original
 
 TILE_BLOCK_SIZE = TILE_SIZE / max(min(TILE_MATCH_RES, TILE_SIZE), 1)
 WORKER_COUNT = max(cpu_count() - 1, 1)
@@ -108,22 +108,24 @@ class TileFitter:
 
         return best_fit_tile_index
 
-def fit_tiles(work_queue, result_queue, tiles_data):
+def fit_tiles(row_start, row_end, x_tile_count, tiles_data, original_img_small, conn):
     # this function gets run by the worker processes, one on each CPU core
     tile_fitter = TileFitter(tiles_data)
 
-    while True:
-        try:
-            img_data, img_coords = work_queue.get(True)
-            if img_data == EOQ_VALUE:
-                break
-            tile_index = tile_fitter.get_best_fit_tile(img_data)
-            result_queue.put((img_coords, tile_index))
-        except KeyboardInterrupt:
-            pass
+    coords_list = []
 
-    # let the result handler know that this worker has finished everything
-    result_queue.put((EOQ_VALUE, EOQ_VALUE))
+    for x in range(x_tile_count):
+        for y in range(row_start, row_end):
+            large_box = (x * TILE_SIZE, y * TILE_SIZE, (x + 1) * TILE_SIZE, (y + 1) * TILE_SIZE)
+            small_box = (x * TILE_SIZE/TILE_BLOCK_SIZE, y * TILE_SIZE/TILE_BLOCK_SIZE, (x + 1) * TILE_SIZE/TILE_BLOCK_SIZE, (y + 1) * TILE_SIZE/TILE_BLOCK_SIZE)
+            img_data = list(original_img_small.crop(small_box).getdata())
+            img_coords = large_box
+            tile_index = tile_fitter.get_best_fit_tile(img_data)
+            coords_list.append((img_coords, tile_index))
+
+    print("I'm finished")
+    conn.send(coords_list)
+    conn.close()
 
 class ProgressCounter:
     def __init__(self, total):
@@ -186,37 +188,53 @@ def compose(original_img, tiles, tiles_path):
     all_tile_data_large = map(lambda tile : list(tile.getdata()), tiles_large)
     all_tile_data_small = map(lambda tile : list(tile.getdata()), tiles_small)
 
-    work_queue   = Queue(WORKER_COUNT)    
-    result_queue = Queue()
+    # create a list to keep all processes
+    processes = []
+
+    # create a process per instance
+    parent_connections = []
+
+    num_rows = mosaic.y_tile_count / WORKER_COUNT
 
     try:
-        # start the worker processes that will build the mosaic image
-        master_process = Process(target=build_mosaic, args=(result_queue, all_tile_data_large, original_img_large, tiles_path))
-        master_process.start()
+        for p in range(WORKER_COUNT):
+            # create a pipe for communication
+            parent_conn, child_conn = Pipe()
+            parent_connections.append(parent_conn)
 
-        # start the worker processes that will perform the tile fitting
-        for n in range(WORKER_COUNT):
-            Process(target=fit_tiles, args=(work_queue, result_queue, all_tile_data_small)).start()
+            # determine which tiles this process will work on
+            start_row = p * num_rows
+            end_row = min(start_row + num_rows, mosaic.y_tile_count)
 
-        progress = ProgressCounter(mosaic.x_tile_count * mosaic.y_tile_count)
-        for x in range(mosaic.x_tile_count):
-            for y in range(mosaic.y_tile_count):
-                large_box = (x * TILE_SIZE, y * TILE_SIZE, (x + 1) * TILE_SIZE, (y + 1) * TILE_SIZE)
-                small_box = (x * TILE_SIZE/TILE_BLOCK_SIZE, y * TILE_SIZE/TILE_BLOCK_SIZE, (x + 1) * TILE_SIZE/TILE_BLOCK_SIZE, (y + 1) * TILE_SIZE/TILE_BLOCK_SIZE)
-                work_queue.put((list(original_img_small.crop(small_box).getdata()), large_box))
-                progress.update()
+            # create the process, pass instance and connection
+            process = Process(target=fit_tiles, args=(start_row, end_row, mosaic.x_tile_count, all_tile_data_small, original_img_small, child_conn))
+            processes.append(process)
 
+        # start all processes
+        for process in processes:
+            process.start()
+
+        # make sure that all processes have finished
+        for process in processes:
+            process.join()
 
     except KeyboardInterrupt:
         print '\nHalting, saving partial image please wait...'
 
     finally:
-        # put these special values onto the queue to let the workers know they can terminate
-        for n in range(WORKER_COUNT):
-            work_queue.put((EOQ_VALUE, EOQ_VALUE))
+        # assemble final image
+        for parent_connection in parent_connections:
+            data = parent_connection.recv()
+            for img_coords, best_fit_tile_index in data:
+                tile_data = all_tile_data_large[best_fit_tile_index]
+                mosaic.add_tile(tile_data, img_coords)
 
-        # wait until master process has finished
-        master_process.join()
+        image_path = os.path.join(tiles_path, OUT_FILE)
+        print 'Writing file to ', image_path
+
+        mosaic.save(image_path)
+        print '\nFinished, output is in', image_path
+
 
 def mosaic(img_path, tiles_path):
     tiles_data = TileProcessor(tiles_path).get_tiles()
