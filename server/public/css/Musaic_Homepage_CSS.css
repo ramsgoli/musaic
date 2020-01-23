@@ -200,6 +200,21 @@
 	flex-direction: column;
 }
 
+#Gallery_Container p{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	width: 80%;
+	font-size: 30px;
+}
+
+@media screen and (max-width: 600px) { 
+	#Gallery_Container p{
+		font-size: 140%;
+	}
+}
+
 #Gallery_Head{
 	display: flex;
 	width:100px;
