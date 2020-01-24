@@ -1,7 +1,7 @@
 import sys
 import os
 from PIL import Image
-from multiprocessing import Process, Queue, cpu_count, Pipe
+from multiprocessing import Process, cpu_count, Pipe
 
 # Change these 3 config parameters to suit your needs...
 TILE_SIZE      = 50        # height/width of mosaic tiles in pixels
@@ -125,7 +125,9 @@ def fit_tiles(row_start, row_end, x_tile_count, tiles_data, original_img_small, 
 
     print("I'm finished")
     conn.send(coords_list)
+    print("sent data")
     conn.close()
+    print("closed connection")
 
 class ProgressCounter:
     def __init__(self, total):
@@ -212,22 +214,28 @@ def compose(original_img, tiles, tiles_path):
 
         # start all processes
         for process in processes:
+            print("starting the process")
             process.start()
 
-        # make sure that all processes have finished
-        for process in processes:
-            process.join()
-
-    except KeyboardInterrupt:
-        print '\nHalting, saving partial image please wait...'
-
-    finally:
         # assemble final image
         for parent_connection in parent_connections:
             data = parent_connection.recv()
             for img_coords, best_fit_tile_index in data:
                 tile_data = all_tile_data_large[best_fit_tile_index]
                 mosaic.add_tile(tile_data, img_coords)
+
+        # make sure that all processes have finished
+        print("{} processes".format(len(processes)))
+        for process in processes:
+            print("We joining")
+            process.join()
+
+        print("We done joining")
+
+    except KeyboardInterrupt:
+        print '\nHalting, saving partial image please wait...'
+
+    finally:
 
         image_path = os.path.join(tiles_path, OUT_FILE)
         print 'Writing file to ', image_path
