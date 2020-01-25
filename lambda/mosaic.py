@@ -214,7 +214,6 @@ def compose(original_img, tiles, tiles_path):
 
         # start all processes
         for process in processes:
-            print("starting the process")
             process.start()
 
         # assemble final image
@@ -225,29 +224,26 @@ def compose(original_img, tiles, tiles_path):
                 mosaic.add_tile(tile_data, img_coords)
 
         # make sure that all processes have finished
-        print("{} processes".format(len(processes)))
         for process in processes:
-            print("We joining")
             process.join()
-
-        print("We done joining")
 
     except KeyboardInterrupt:
         print '\nHalting, saving partial image please wait...'
 
     finally:
-
         image_path = os.path.join(tiles_path, OUT_FILE)
         print 'Writing file to ', image_path
 
         mosaic.save(image_path)
         print '\nFinished, output is in', image_path
 
+        return image_path
+
 
 def mosaic(img_path, tiles_path):
     tiles_data = TileProcessor(tiles_path).get_tiles()
     image_data = TargetImage(img_path).get_data()
-    compose(image_data, tiles_data, tiles_path)
+    return compose(image_data, tiles_data, tiles_path)
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:

@@ -64,9 +64,14 @@ def get_image_from_s3(image_key):
     client = boto3.resource('s3')
     bucket = client.Bucket('musaic')
     with open(INPUT_IMAGE, 'wb') as f:
-        bucket.download_fileobj(image_key, f)
+        bucket.download_fileobj("uploads/{}".format(image_key), f)
 
     return INPUT_IMAGE
+
+def save_image_to_s3(image_path, image_key):
+    client = boto3.resource('s3')
+    bucket = client.Bucket('musaic')
+    bucket.upload_file(image_path, image_key)
 
 def lambda_handler(event, context):
     playlist_id = event["playlist_id"]
@@ -83,31 +88,27 @@ def lambda_handler(event, context):
     download_album_cover_art(sp, playlist_ids, temp_dir)
 
     # fetch image stored in s3
-    image_path = get_image_from_s3(file_name)
+    input_image_path = get_image_from_s3(file_name)
 
     # generate mosaic
-    mosaic(image_path, temp_dir)
+    output_image_path = mosaic(input_image_path, temp_dir)
 
-    # Convert image into utf-8 encoded base64
-    with open(path.join(temp_dir, "mosaic.jpeg"), "rb") as imageFile:
-      str = base64.b64encode(imageFile.read())
-      encoded_img = str.decode("utf-8")
+    # save generated image to s3
+    output_image_key = "generated/{}".format(file_name)
+    save_image_to_s3(output_image_path, output_image_key)
 
     # clean up
     shutil.rmtree(temp_dir)
 
     return {
-      "isBase64Encoded": True,
       "statusCode": 200,
-      "headers": { "content-type": "image/jpeg"},
-      "body":  encoded_img
     }
 
 if __name__ == '__main__':
     event = {
         "playlist_id": "1tzytA4QOHs4HYfIcOGsNV",
         "file_name": "photo.jpg",
-        "access_token": "BQCcTAGL2vTALQGrK3Mq8ofVYjlOUIR04EQBqmI6R_vFM4lt5ryYoxbvhE-kOMDEH7zImixFdLID2AnsQcHfYhfVcqeNQ62X4WW39bwwq1hpeI89pqszDplu3y7rWMnooSecEusOp6-erey4OMyiU-ixOyX-I7ZUNGswX0faII1fsux500q9Mg"
+        "access_token": "BQD8D0f_ljx-CK4eGCJzY0fQOmFKW8E6M_fhWoX-sW3S9y8h8DDANTAIGFuZ7A3isSvKl1eTzkz1uXa7Y4Y-aVgGjFx82B0SRhxL4Yn--dhcrL27zNTdmyMf3tZeV07krBe_z-Lg3SoIJBwsXRXhQLLSb6YfoA-sze8t3ERg0RqMtl2Y-urIvA"
     }
     context = "context"
     lambda_handler(event, context)
