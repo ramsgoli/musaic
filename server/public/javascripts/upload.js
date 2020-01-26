@@ -1,3 +1,7 @@
+document.getElementById('upload_photo').addEventListener('click', () => {
+  document.getElementById('file-input').click()
+})
+
 document.getElementById("upload_photo_form").addEventListener('submit', e => {
   e.preventDefault()
   const files = document.getElementById('file-input').files

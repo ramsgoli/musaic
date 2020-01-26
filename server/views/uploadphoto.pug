@@ -17,7 +17,9 @@ block bodyContent
               | from your playlists and
               | we render your photo
               | using the album cover images as tiles
-        button#upload_photo Upload Photo
+        form#upload_photo_form
+          button#upload_photo Choose Photo
+          input#file-input(type="file" hidden)
   #good_photos
     h1(style='text-align: center;')
       | Can&rsquo;t find a personal photo?&#x2028;
@@ -30,4 +32,5 @@ block bodyContent
         p Gallery 2
       .Gallery_Boxes
         p Gallery 3
+  script(src='/javascripts/upload.js')
 
