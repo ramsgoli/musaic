@@ -84,7 +84,7 @@ class PublicRouter {
 /* GET home page. */
 router.get('/', PublicRouter.homepage)
 // router.get('/getstarted', PublicRouter.getStarted)
-router.get('/uploadphoto', PublicRouter.uploadPhoto)
+router.get('/uploadphoto', PublicRouter.middleware, PublicRouter.uploadPhoto)
 router.get('/playlistselection', PublicRouter.middleware, PublicRouter.playlistSelection)
 router.get('/confirmplaylist/:id', PublicRouter.middleware, PublicRouter.confirmPlaylist)
 router.get('/loading', PublicRouter.loading)

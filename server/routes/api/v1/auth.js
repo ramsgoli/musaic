@@ -21,7 +21,7 @@ class Auth {
       res.cookie('refresh_token', data.body['refresh_token'], {
         httpOnly: true
       })
-      res.redirect('/users/me')
+      res.redirect('/uploadphoto')
     } catch (err) {
       next(err)
     }
