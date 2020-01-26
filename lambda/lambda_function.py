@@ -74,9 +74,10 @@ def save_image_to_s3(image_path, image_key):
     bucket.upload_file(image_path, image_key)
 
 def lambda_handler(event, context):
-    playlist_id = event["playlist_id"]
-    file_name = event["file_name"]
-    access_token = event["access_token"]
+    body = json.loads(event["body"])
+    playlist_id = body["playlist_id"]
+    file_name = body["file_name"]
+    access_token = body["access_token"]
 
     sp = spotipy.Spotify(auth=access_token)
     
