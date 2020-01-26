@@ -69,9 +69,12 @@ def get_image_from_s3(image_key):
     return INPUT_IMAGE
 
 def save_image_to_s3(image_path, image_key):
+    OBJECT_URL = "https://musaic.s3-us-west-1.amazonaws.com/{}"
     client = boto3.resource('s3')
     bucket = client.Bucket('musaic')
     bucket.upload_file(image_path, image_key)
+
+    return OBJECT_URL.format(image_key)
 
 def lambda_handler(event, context):
     body = json.loads(event["body"])
@@ -96,13 +99,16 @@ def lambda_handler(event, context):
 
     # save generated image to s3
     output_image_key = "generated/{}".format(file_name)
-    save_image_to_s3(output_image_path, output_image_key)
+    object_url = save_image_to_s3(output_image_path, output_image_key)
 
     # clean up
     shutil.rmtree(temp_dir)
 
     return {
-      "statusCode": 200,
+        "statusCode": 200,
+        "body": json.dumps({
+            "object_url": object_url
+        })
     }
 
 if __name__ == '__main__':
