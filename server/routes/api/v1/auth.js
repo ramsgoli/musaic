@@ -15,12 +15,9 @@ class Auth {
       const data = await spotifyApi.authorizationCodeGrant(code)
 
       res.cookie('access_token', data.body['access_token'], {
-        httpOnly: true,
         maxAge: data.body['expires_in']
       })
-      res.cookie('refresh_token', data.body['refresh_token'], {
-        httpOnly: true
-      })
+      res.cookie('refresh_token', data.body['refresh_token'])
       res.redirect('/uploadphoto')
     } catch (err) {
       next(err)

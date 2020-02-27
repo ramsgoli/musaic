@@ -3,7 +3,7 @@ const getCookie = name => {
     return v ? v[2] : null;
 }
 
-document.getElementById("generate_photo_form").addEventListener('submit', e => {
+document.getElementById("generate_photo_form").addEventListener('submit', async e => {
   e.preventDefault()
   
   // get fileName  from session storage
@@ -17,20 +17,22 @@ document.getElementById("generate_photo_form").addEventListener('submit', e => {
   const accessToken = getCookie("access_token")
 
   const body = {
-    playlist_id: playlist,
+    playlist_id: playlistId,
     file_name: fileName,
     access_token: accessToken
   }
 
   // call api with access token
   try {
-    const response = await fetch(`/api/v1/generate`, {
+    const response = await fetch(`https://568efiwqxe.execute-api.us-west-1.amazonaws.com/dev`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(body)
     })
+
+    window.location.href = `/loading?key=${fileName}`
   } catch (err) {
 
   }

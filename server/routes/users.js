@@ -18,7 +18,6 @@ class Users {
         const data = await spotifyApi.refreshAccessToken()
 
         res.cookie('access_token', data.body['access_token'], {
-          httpOnly: true,
           maxAge: data.body['expires_in']
         })
 

@@ -77,10 +77,10 @@ def save_image_to_s3(image_path, image_key):
     return OBJECT_URL.format(image_key)
 
 def lambda_handler(event, context):
-    body = json.loads(event["body"])
-    playlist_id = body["playlist_id"]
-    file_name = body["file_name"]
-    access_token = body["access_token"]
+    print(event)
+    playlist_id = event["playlist_id"]
+    file_name = event["file_name"]
+    access_token = event["access_token"]
 
     sp = spotipy.Spotify(auth=access_token)
     

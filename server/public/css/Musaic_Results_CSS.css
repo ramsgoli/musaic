@@ -120,6 +120,10 @@
     justify-content:  center;
 }
 
+#result img {
+	width: 100%;
+}
+
 #albums_used{
     display: flex;
     justify-content: center;
