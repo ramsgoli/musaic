@@ -18,8 +18,8 @@ block bodyContent
               | we render your photo
               | using the album cover images as tiles
         form#upload_photo_form
-          button#upload_photo Choose Photo
-          input#file-input(type="file" hidden)
+          input(type="file", name="files[]" accept="image/png, image/jpeg")
+          input(type="submit", value="Upload File", name="submit")
   #good_photos
     h1(style='text-align: center;')
       | Can&rsquo;t find a personal photo?&#x2028;

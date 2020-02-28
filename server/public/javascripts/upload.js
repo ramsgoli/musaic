@@ -1,14 +1,14 @@
-document.getElementById('upload_photo').addEventListener('click', () => {
-  document.getElementById('file-input').click()
-})
+const form = document.querySelector("form")
 
-document.getElementById("upload_photo_form").addEventListener('submit', e => {
+form.addEventListener('submit', e => {
   e.preventDefault()
-  const files = document.getElementById('file-input').files
+  const files = document.querySelector("[type=file]").files
   const file = files[0]
+
   if(file == null){
     return alert('No file selected.')
   }
+
   getSignedRequest(file)
 })
 
@@ -38,8 +38,9 @@ async function uploadFile(file, signedRequest) {
     if (response.status != 200) {
       throw new Error()
     }
-    window.location.replace("/playlistselection")
+    window.location.href = "/playlistselection"
   } catch (err) {
+    console.log(err)
     return alert("Couldn't Upload file")
   }
 }
