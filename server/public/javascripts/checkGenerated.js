@@ -4,12 +4,11 @@ const pollS3 = key => {
       method: "HEAD"
     })
     const status = promise.then(data => {
-      console.log(data.status)
       if (data.status === 200) {
         clearInterval(interval)
         window.location.href=`/result?key=${key}`
       }
-    })
+    }).catch(err => {})
   }, 1000)
 }
 

@@ -249,40 +249,23 @@
 #Gallery_Container{
   display: flex;
   width: 100%;
-  height: 500px;
   align-items: center;
   flex-direction: column;
 }
 
 #Gallery{
   display: flex;
-  width: 100%;
+	flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+	align-content: stretch;
 }
 
-#Gallery_Col{
-  display: flex;
-  width: 100%;
-  height: 500px;
-  align-items: center;
-  flex-direction: column;
-  flex:initial;
-  margin:10px;
-  flex-grow: 1;
-  flex-basis: 0;
+#playlist_container {
+	width: 40%;
+	padding: 20px;
+	min-width: 260px;
 }
-
-
-.Gallery_Boxes{
-  display: flex;
-  border-style: solid;
-  border-width: 2px;
-  border-color: #808080;
-  width:1000%
-  /*width:50%;
-  height:300px;*/
-  justify-content: center;
-  align-items: center;
-  margin:10px;
+#playlist_container img {
+	max-width: 100%;
 }

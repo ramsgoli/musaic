@@ -9,12 +9,17 @@ form.addEventListener('submit', e => {
     return alert('No file selected.')
   }
 
-  getSignedRequest(file)
+  ImageTools.resize(file, {
+    width: 1080,
+    height: 1080,
+  }, (blob, ok) => {
+    getSignedRequest(blob, file.name)
+  })
 })
 
-async function getSignedRequest(file){
+async function getSignedRequest(file, filename){
   const filePrefix = getRandomChars(6)
-  const fileName = `${filePrefix}/${file.name}`
+  const fileName = `${filePrefix}/${filename}`
 
   // store filename in session so we can access it in the call to the lambda function
   sessionStorage.setItem("fileName", fileName)
