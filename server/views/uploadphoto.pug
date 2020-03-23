@@ -9,7 +9,7 @@ block bodyContent
       #col
         #vizandinstr
           #viz
-            img(src='/images/Upload_Photo_Icon.png')
+            img(src='../public/images/Upload_Photo_Icon.png')
           #instruction
             h1(style='margin: 0px 0px 10px;') Upload Photo
             p(style='font-size: 20px; margin: 0px;width: 63%')
@@ -17,9 +17,12 @@ block bodyContent
               | from your playlists and
               | we render your photo
               | using the album cover images as tiles
+            p(style='font-size: 25px;')  Please upload a jpeg or png file
         form#upload_photo_form
-          input(type="file", name="files[]" accept="image/png, image/jpeg")
-          input(type="submit", value="Upload File", name="submit")
+          input.inputfile(type='file' name='files[]' accept='image/png, image/jpeg')
+          label(for='file') Upload File
+          input.submit(type='submit' value='Submit' name='submit')
+          label(for='submit') Submit 
   #good_photos
     h1(style='text-align: center;')
       | Can&rsquo;t find a personal photo?&#x2028;
@@ -29,9 +32,8 @@ block bodyContent
       .Gallery_Boxes
         p Gallery 1
       .Gallery_Boxes
-        p Gallery 2
-      .Gallery_Boxes
         p Gallery 3
+      .Gallery_Boxes
+        p Gallery 5
   script(src='/javascripts/ImageTools.js')
   script(src='/javascripts/upload.js')
-

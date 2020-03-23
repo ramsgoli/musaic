@@ -47,11 +47,16 @@
                     we render your photo
                     using the album cover images as tiles
                 </p>
+                <p style="font-size: 25px;"> Please upload a jpeg or png file</p>
                 </div>
             </div>
 
-            <button id="upload_photo">Upload Photo</button>
-
+            <form id="upload_photo_form">
+              <input type="file" name="files[]" accept="image/png, image/jpeg" class="inputfile" />
+              <label for="file">Upload File</label>
+              <input type="submit" value="Submit" name="submit" class="submit"/>
+              <label for="submit">Submit </label>
+            </form>
         </div>
     </div>
 </div>
