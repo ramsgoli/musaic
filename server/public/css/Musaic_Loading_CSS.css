@@ -108,7 +108,7 @@
       display: flex;
       height: 330px;
       width: 100%;
-      margin-top: 100px;
+      margin-top: 175px;
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -131,10 +131,18 @@
     }
 
 #stage p{
+  display: flex;
   margin-top: -10px;
+  text-align: center;
 }
 
-
+#wait{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:50%;
+  font-size: 25px;
+}
 
 
 

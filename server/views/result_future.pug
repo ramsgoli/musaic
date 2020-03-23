@@ -1,0 +1,39 @@
+extends layout
+
+block headContent
+  link(rel='stylesheet', href='/css/Musaic_Results_CSS.css')
+
+block bodyContent
+  #result_container
+    h1 Your Musaic
+    #result
+      // INSERT IMG HERE
+  #albums_used
+    h1 Album Covers Used
+    #cover_display
+      .Gallery_Boxes
+        p Album 1
+      .Gallery_Boxes
+        p Album 2
+      .Gallery_Boxes
+        p Album 3
+      .Gallery_Boxes
+        p Album 4
+    #cover_display
+      .Gallery_Boxes
+        p Album 5
+      .Gallery_Boxes
+        p Album 6
+      .Gallery_Boxes
+        p Album 7
+      .Gallery_Boxes
+        p Album 8
+  #buttons
+    #download Download
+  #share_container
+    h1 Share
+    #social_media
+      img(src='/images/facebook_icon.png')
+      img(src='/images/instagram_icon.png')
+      img(src='/images/twitter_icon.png')
+
