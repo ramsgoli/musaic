@@ -103,6 +103,19 @@
   }
 }
 
+ @media screen and (max-width: 900px) { 
+    #logo{
+        width: 205px;
+    }
+}
+
+@media screen and (max-width: 700px){
+    #logo{
+        /*width:30%;*/
+        height:20%;
+    }
+}
+
 
 #stage {
       display: flex;
