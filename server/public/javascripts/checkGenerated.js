@@ -1,22 +1,41 @@
-const pollS3 = key => {
-  const interval = setInterval(() => {
-    const promise = fetch(`https://musaic.s3-us-west-1.amazonaws.com/generated/${key}`, {
-      method: "HEAD"
-    })
-    const status = promise.then(data => {
-      if (data.status === 200) {
-        clearInterval(interval)
-        window.location.href=`/result?key=${key}`
+const pollStepFunction = arn => {
+  const params = {
+    executionArn: arn
+  }
+
+  const interval = setInterval(async () => {
+    try {
+      const response = await fetch(`https://568efiwqxe.execute-api.us-west-1.amazonaws.com/dev?executionArn=${arn}`)
+      const data = await response.json()
+      console.log(data)
+
+      const { status } = data
+      switch (status) {
+        case "RUNNING":
+          break
+        case "SUCCEEDED":
+          clearInterval(interval)
+          const output = JSON.parse(data.output)
+          const body = JSON.parse(output.body)
+          console.log(body)
+           window.location.href=`/result?key=${body.object_url}`
+          break
+        default:
+          clearInterval(interval)
+          alert("Failed to generate your musaic. Please try again")
+          break
       }
-    }).catch(err => {})
-  }, 1000)
+    } catch (err) {
+      console.log(err)
+    }
+  }, 2000)
 }
 
 const getKeyFromUrl = () => {
   const urlParams = new URLSearchParams(window.location.search)
-  const objectKey = urlParams.get('key')
+  const arn = urlParams.get('arn')
 
-  pollS3(objectKey)
+  pollStepFunction(arn)
 }
 
 getKeyFromUrl()

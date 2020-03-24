@@ -77,39 +77,47 @@ def save_image_to_s3(image_path, image_key):
     return OBJECT_URL.format(image_key)
 
 def lambda_handler(event, context):
-    print(event)
-    playlist_id = event["playlist_id"]
-    file_name = event["file_name"]
-    access_token = event["access_token"]
+    try:
+        playlist_id = event["playlist_id"]
+        file_name = event["file_name"]
+        access_token = event["access_token"]
 
-    sp = spotipy.Spotify(auth=access_token)
-    
-    # get all unique album ids 
-    playlist_ids = get_playlist_ids(sp, playlist_id)
+        sp = spotipy.Spotify(auth=access_token)
+        
+        # get all unique album ids 
+        playlist_ids = get_playlist_ids(sp, playlist_id)
 
-    # download album cover
-    temp_dir = tempfile.mkdtemp()
-    download_album_cover_art(sp, playlist_ids, temp_dir)
+        # download album cover
+        temp_dir = tempfile.mkdtemp()
+        download_album_cover_art(sp, playlist_ids, temp_dir)
 
-    # fetch image stored in s3
-    input_image_path = get_image_from_s3(file_name)
+        # fetch image stored in s3
+        input_image_path = get_image_from_s3(file_name)
 
-    # generate mosaic
-    output_image_path = mosaic(input_image_path, temp_dir)
+        # generate mosaic
+        output_image_path = mosaic(input_image_path, temp_dir)
 
-    # save generated image to s3
-    output_image_key = "generated/{}".format(file_name)
-    object_url = save_image_to_s3(output_image_path, output_image_key)
+        # save generated image to s3
+        output_image_key = "generated/{}".format(file_name)
+        object_url = save_image_to_s3(output_image_path, output_image_key)
 
-    # clean up
-    shutil.rmtree(temp_dir)
+        # clean up
+        shutil.rmtree(temp_dir)
 
-    return {
-        "statusCode": 200,
-        "body": json.dumps({
-            "object_url": object_url
-        })
-    }
+        return {
+            "statusCode": 200,
+            "body": json.dumps({
+                "object_url": object_url
+            })
+        }
+
+    except Exception as e:
+        print(e)
+        
+        return {
+            "statusCode": 400
+        }
+
 
 if __name__ == '__main__':
     event = {

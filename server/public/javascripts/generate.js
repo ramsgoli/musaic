@@ -16,10 +16,15 @@ document.getElementById("generate_photo_form").addEventListener('submit', async 
   // get access token from cookies
   const accessToken = getCookie("access_token")
 
-  const body = {
+  const input = {
     playlist_id: playlistId,
     file_name: fileName,
     access_token: accessToken
+  }
+
+  const body = {
+    input: JSON.stringify(input),
+    stateMachineArn: "arn:aws:states:us-west-1:048178349693:stateMachine:MyStateMachine"
   }
 
   // call api with access token
@@ -32,7 +37,9 @@ document.getElementById("generate_photo_form").addEventListener('submit', async 
       body: JSON.stringify(body)
     })
 
-    window.location.href = `/loading?key=${fileName}`
+    const data = await response.json()
+
+    window.location.href = `/loading?arn=${data.executionArn}`
   } catch (err) {
 
   }

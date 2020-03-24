@@ -1,5 +1,5 @@
-const objectKey = sessionStorage.getItem("fileName")
+const urlParams = new URLSearchParams(window.location.search)
 const img = document.createElement('img')
-img.src = `https://musaic.s3-us-west-1.amazonaws.com/generated/${objectKey}`
+img.src = urlParams.get('key')
 const resultDiv = document.getElementById('result')
 resultDiv.appendChild(img)
