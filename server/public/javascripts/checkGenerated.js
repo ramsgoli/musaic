@@ -7,7 +7,6 @@ const pollStepFunction = arn => {
     try {
       const response = await fetch(`https://568efiwqxe.execute-api.us-west-1.amazonaws.com/dev?executionArn=${arn}`)
       const data = await response.json()
-      console.log(data)
 
       const { status } = data
       switch (status) {
@@ -16,9 +15,7 @@ const pollStepFunction = arn => {
         case "SUCCEEDED":
           clearInterval(interval)
           const output = JSON.parse(data.output)
-          const body = JSON.parse(output.body)
-          console.log(body)
-           window.location.href=`/result?key=${body.object_url}`
+          window.location.href=`/result?key=${output.body.object_url}`
           break
         default:
           clearInterval(interval)
