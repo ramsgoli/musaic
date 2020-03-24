@@ -225,7 +225,7 @@ input {
 }
 
 
-input:hover {
+input[type=submit]:hover {
     cursor: pointer;
     background-color: #00BEE4;
     border-style: solid;
@@ -236,9 +236,6 @@ input:hover {
     box-shadow: rgba(0, 190, 228) 0 3px 4px;
 }
 
-input[type=file]{
-  width:83px;
-}
 
 @media only screen and (max-width: 900px) { 
     #col{
