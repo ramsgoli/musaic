@@ -208,60 +208,36 @@
 #upload_photo_form{
   display: flex;
   flex-direction: row;
-  height:75px;
-  width:250px;
+  width:200px;
   border-style: none;
-  background-color: #00BEE4;
   font-size: 20px;
   font-weight: bold;
   justify-content: center;
-  align-items: center;
+  align-items: space-between;
   margin-top: 75px;
+
+}
+
+
+input {
+  margin: 40px;
+  font-size: 18px;
+}
+
+
+input:hover {
+    cursor: pointer;
+    background-color: #00BEE4;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #00BEE4;
     -webkit-box-shadow: rgba(0, 190, 228) 0 3px 4px;
     -moz-box-shadow: rgba(0, 190, 228) 0 3px 4px;
     box-shadow: rgba(0, 190, 228) 0 3px 4px;
-
 }
 
-
-.inputfile {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
-
-label{
-  background-color: #00BEE4;
-  margin: 10px;
-  border-style: solid;
-  border-color: white;
-  border-width: 0.5px;
-}
-
-.inputfile:focus + label,
-.inputfile + label:hover {
-    color:#00BEE4;
-    background-color: white;
-    cursor: pointer;
-}
-
-.submit {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  }
-
-
-.submit:focus + label,
-.submit + label:hover {
-    color:#00BEE4;
-    background-color: white;
-    cursor: pointer;
+input[type=file]{
+  width:83px;
 }
 
 @media only screen and (max-width: 900px) { 
@@ -288,6 +264,13 @@ label{
         margin-top: 220px;
     }
 
+}
+
+@media only screen and (max-width: 700px){
+  input[type=file]{
+      width:106px;
+      background-color: white;
+    }
 }
 
 @media only screen and (max-width: 600px) { 

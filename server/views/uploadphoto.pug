@@ -19,10 +19,8 @@ block bodyContent
               | using the album cover images as tiles
             p(style='font-size: 25px;')  Please upload a jpeg or png file
         form#upload_photo_form
-          input.inputfile(type='file' name='files[]' accept='image/png, image/jpeg')
-          label(for='file') Upload File
-          input.submit(type='submit' value='Submit' name='submit')
-          label(for='submit') Submit 
+          input(type='file' name='files[]' accept='image/png, image/jpeg')
+          input(type='submit' value='Submit' name='submit')
   #good_photos
     h1(style='text-align: center;')
       | Can&rsquo;t find a personal photo?&#x2028;
