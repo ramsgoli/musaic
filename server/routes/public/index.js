@@ -9,14 +9,12 @@ class PublicRouter {
     const spotifyApi = createAuthenticatedSpotifyApi()
 
     // get access token from cookie
-    console.log(req.cookies)
     if (!req.cookies['access_token']) {
       // refresh token
       try {
         spotifyApi.setRefreshToken(req.cookies['refresh_token'])
         const data = await spotifyApi.refreshAccessToken()
 
-        console.log(data.body['expires_in'])
         res.cookie('access_token', data.body['access_token'], {
           maxAge: data.body['expires_in'] * 1000,
           httpOnly: false
