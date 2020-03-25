@@ -193,7 +193,6 @@
   font-weight: bold;
   justify-content: center;
   align-items: space-between;
-  margin-top: 75px;
 
 }
 
@@ -237,15 +236,15 @@ input[type=submit]:hover {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 220px;
     }
 
 }
 
 @media only screen and (max-width: 700px){
   input[type=file]{
-      width:106px;
-      background-color: white;
+      width:200px;
+      color: white;
+      background-color: #00BEE4;
     }
 }
 
