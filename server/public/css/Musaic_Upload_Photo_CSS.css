@@ -117,24 +117,6 @@
     }
 }
 
-#Create_Musaic{
-    display: flex;
-    height:75px;
-    width:200px;
-    border-style: none;
-    background-color: #00BEE4;
-    font-size: 20px;
-    font-weight: bold;
-    justify-content: center;
-
- -webkit-box-shadow: rgba(0, 190, 228) 0 3px 4px;
-  -moz-box-shadow: rgba(0, 190, 228) 0 3px 4px;
-  box-shadow: rgba(0, 190, 228) 0 3px 4px;
-
-    /*-webkit-box-shadow: 0 9px 8px -4px #00BEE4;
-       -moz-box-shadow: 0 9px 8px -4px #00BEE4;
-            box-shadow: 0 9px 8px -4px #00BEE4;*/
-}
 
 
 
@@ -171,7 +153,6 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    height: 200px;
     
 }
 
@@ -182,7 +163,6 @@
     border-color: #808080;*/
     border-style: none;
     width: 50%;
-    height:200px;
     justify-content: center;
     align-items: center;
 
@@ -195,7 +175,6 @@
     border-color: #808080;*/
     border-style: none;
     width: 50%;
-    height:200px;
     justify-content: center;
     align-items: center;
     align-content: center;
@@ -300,7 +279,6 @@ input[type=submit]:hover {
     border-width: 2px;
     border-color: red;*/
     width: 75%;
-    height: 250px;
     align-items: center;
     flex-direction: row;
     justify-content: space-between;

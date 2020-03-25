@@ -193,7 +193,6 @@
     border-color: #808080;*/
     border-style: none;
     width: 50%;
-    height:200px;
     justify-content: center;
     align-items: center;
     align-content: center;
@@ -215,7 +214,6 @@
       margin-top:100px;
     }
     #vizandinstr{
-        flex-direction:column;
         align-items: center;
         margin-top: -102px;
         margin-bottom: -100px;
@@ -232,6 +230,7 @@
         margin:20px;
     }
     #instruction{
+      display: flex;
       margin-top: 30px;
         margin-bottom: 30px;
     }
@@ -244,6 +243,66 @@
 
     }
 }
+
+
+#MS {
+  display: flex;
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  align-items: center;
+  flex-direction: row;
+    text-align: center; 
+
+}
+
+@media screen and (max-width: 900px) { 
+  #MS{
+    flex-direction: column;
+  }
+  #MS_Text{
+    font-size: 140%;
+  }
+}
+
+#GenandMS_Gallery_spacer{
+  display: flex;
+  height:50px;
+}
+
+#Gallery_Container{
+  display: flex;
+  width: 100%;
+  height: 500px;
+  align-items: center;
+  flex-direction: column;
+}
+
+#Gallery_Container p{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 80%;
+  font-size: 30px;
+}
+
+@media screen and (max-width: 600px) { 
+  #Gallery_Container p{
+    font-size: 140%;
+  }
+}
+
+#Gallery_Head{
+  display: flex;
+  width:100px;
+  height:50px;
+  justify-content: center;
+  align-items: center;
+}
+
 
 
 #Gallery_Container{
