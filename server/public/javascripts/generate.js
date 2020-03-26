@@ -24,7 +24,6 @@ document.getElementById("generate_photo_form").addEventListener('submit', async 
 
   const body = {
     input: JSON.stringify(input),
-    stateMachineArn: "arn:aws:states:us-west-1:048178349693:stateMachine:MyStateMachine"
   }
 
   // call api with access token
@@ -39,7 +38,7 @@ document.getElementById("generate_photo_form").addEventListener('submit', async 
 
     const data = await response.json()
 
-    window.location.href = `/loading?arn=${data.executionArn}`
+    window.location.href = `/loading?id=${data.executionId}`
   } catch (err) {
 
   }
