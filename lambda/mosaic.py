@@ -108,7 +108,7 @@ class TileFitter:
 
         return best_fit_tile_index
 
-def fit_tiles(row_start, row_end, x_tile_count, tiles_data, original_img_small, conn):
+def fit_tiles(row_start, row_end, x_tile_count, tiles_data, original_img_small):
     # this function gets run by the worker processes, one on each CPU core
     tile_fitter = TileFitter(tiles_data)
 
@@ -124,10 +124,7 @@ def fit_tiles(row_start, row_end, x_tile_count, tiles_data, original_img_small, 
             coords_list.append((img_coords, tile_index))
 
     print("I'm finished")
-    conn.send(coords_list)
-    print("sent data")
-    conn.close()
-    print("closed connection")
+    return coords_list
 
 class ProgressCounter:
     def __init__(self, total):
@@ -165,42 +162,15 @@ def compose(original_img, tiles, tiles_path):
     all_tile_data_large = map(lambda tile : list(tile.getdata()), tiles_large)
     all_tile_data_small = map(lambda tile : list(tile.getdata()), tiles_small)
 
-    # create a list to keep all processes
-    processes = []
-
-    # create a process per instance
-    parent_connections = []
-
-    num_rows = mosaic.y_tile_count / WORKER_COUNT
-
     try:
-        for p in range(WORKER_COUNT):
-            # create a pipe for communication
-            parent_conn, child_conn = Pipe()
-            parent_connections.append(parent_conn)
-
-            # determine which tiles this process will work on
-            start_row = p * num_rows
-            end_row = min(start_row + num_rows, mosaic.y_tile_count)
-
-            # create the process, pass instance and connection
-            process = Process(target=fit_tiles, args=(start_row, end_row, mosaic.x_tile_count, all_tile_data_small, original_img_small, child_conn))
-            processes.append(process)
-
-        # start all processes
-        for process in processes:
-            process.start()
-
         # assemble final image
-        for parent_connection in parent_connections:
-            data = parent_connection.recv()
-            for img_coords, best_fit_tile_index in data:
-                tile_data = all_tile_data_large[best_fit_tile_index]
-                mosaic.add_tile(tile_data, img_coords)
+        start_row = 0
+        end_row = mosaic.y_tile_count
 
-        # make sure that all processes have finished
-        for process in processes:
-            process.join()
+        data = fit_tiles(start_row, end_row, mosaic.x_tile_count, all_tile_data_small, original_img_small)
+        for img_coords, best_fit_tile_index in data:
+            tile_data = all_tile_data_large[best_fit_tile_index]
+            mosaic.add_tile(tile_data, img_coords)
 
     except KeyboardInterrupt:
         print '\nHalting, saving partial image please wait...'
