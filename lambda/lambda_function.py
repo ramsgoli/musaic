@@ -14,7 +14,7 @@ def download_album_cover_func(url, directory):
     file_path = path.join(directory, file_name)
     urlretrieve(url, file_path)
 
-def get_playlist_ids(sp, playlist_id):
+def get_album_ids(sp, playlist_id):
     user_id = sp.me()["id"]
     fields = "items(track(album(id))),next"
     data = sp.user_playlist_tracks(user_id, playlist_id=playlist_id, fields=fields)
@@ -29,7 +29,6 @@ def get_playlist_ids(sp, playlist_id):
     return ids
 
 def download_album_cover_art(sp, playlist_ids, temp_dir):
-
     processes = []
     playlist_ids = list(playlist_ids)
 
@@ -85,11 +84,11 @@ def lambda_handler(event, context):
         sp = spotipy.Spotify(auth=access_token)
         
         # get all unique album ids 
-        playlist_ids = get_playlist_ids(sp, playlist_id)
+        album_ids = get_album_ids(sp, playlist_id)
 
         # download album cover
         temp_dir = tempfile.mkdtemp()
-        download_album_cover_art(sp, playlist_ids, temp_dir)
+        download_album_cover_art(sp, album_ids, temp_dir)
 
         # fetch image stored in s3
         input_image_path = get_image_from_s3(file_name)

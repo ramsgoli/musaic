@@ -154,34 +154,9 @@ class MosaicImage:
     def save(self, path):
         self.image.save(path)
 
-def build_mosaic(result_queue, all_tile_data_large, original_img_large, output_path):
-    mosaic = MosaicImage(original_img_large)
-
-    active_workers = WORKER_COUNT
-    while True:
-        try:
-            img_coords, best_fit_tile_index = result_queue.get()
-
-            if img_coords == EOQ_VALUE:
-                active_workers -= 1
-                if not active_workers:
-                    break
-            else:
-                tile_data = all_tile_data_large[best_fit_tile_index]
-                mosaic.add_tile(tile_data, img_coords)
-
-        except KeyboardInterrupt:
-            pass
-
-
-    image_path = os.path.join(output_path, OUT_FILE)
-    print 'Writing file to ', image_path
-
-    mosaic.save(image_path)
-    print '\nFinished, output is in', image_path
-
 def compose(original_img, tiles, tiles_path):
     print 'Building mosaic, press Ctrl-C to abort...'
+    print('number of workers: ', WORKER_COUNT)
     original_img_large, original_img_small = original_img
     tiles_large, tiles_small = tiles
 
