@@ -28,12 +28,12 @@ def get_album_ids(sp, playlist_id):
 
     return ids
 
-def download_album_cover_art(sp, playlist_ids, temp_dir):
+def download_album_cover_art(sp, album_ids, temp_dir):
     processes = []
-    playlist_ids = list(playlist_ids)
+    album_ids = list(album_ids)
 
-    for i in range(0, len(playlist_ids), 20):
-        albums = sp.albums(playlist_ids[i:i+20])
+    for i in range(0, len(album_ids), 20):
+        albums = sp.albums(album_ids[i:i+20])
         image_urls = [album["images"][0]["url"] for album in albums["albums"]]
 
         # for each image URL, instantiate a process to download
