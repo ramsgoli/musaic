@@ -43,7 +43,7 @@
   align-items: center;
   align-content: center;
   justify-content: center;
-  font-size: 25px;
+  font-size: 24px;
   line-height: 2em;
 }
 .menu:first-child {
@@ -151,7 +151,7 @@
 	width:200px;
 	border-style: none;
 	background-color: #00BEE4;
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: bold;
 	justify-content: center;
 
@@ -177,8 +177,8 @@
 
 #MS_Text{
 	  margin:0px;
-	  font-size: 30px;
-	  width: 75%
+	  font-size: 18px;
+	  width: 50%;
 }
 
 @media screen and (max-width: 600px) { 
@@ -206,7 +206,7 @@
 	align-items: center;
 	text-align: center;
 	width: 80%;
-	font-size: 30px;
+	font-size: 18px;
 }
 
 @media screen and (max-width: 600px) { 

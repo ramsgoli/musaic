@@ -11,7 +11,7 @@ block bodyContent
           #viz
             img(src='images/Upload_Photo_Icon.png')
           #instruction
-            h1(style='margin: 0px 0px 10px;') Upload Photo
+            h2(style='margin: 0px 0px 10px;') Upload Photo
             p(style='font-size: 20px; margin: 0px;width: 63%')
               | We take the album cover images
               | from your playlists and
@@ -22,16 +22,16 @@ block bodyContent
           input(type='file' name='files[]' accept='image/png, image/jpeg')
           input(type='submit' value='Submit' name='submit')
   #good_photos
-    h1(style='text-align: center;')
+    h2(style='text-align: center;')
       | Can&rsquo;t find a personal photo?&#x2028;
       br
       |     Try these!
     #good_photos_row
       .Gallery_Boxes
-        p Gallery 1
+        img(src='images/stocks/one.jpeg')
       .Gallery_Boxes
-        p Gallery 3
+        img(src='images/stocks/two.jpeg')
       .Gallery_Boxes
-        p Gallery 5
+        img(src='images/stocks/three.jpeg')
   script(src='/javascripts/ImageTools.js')
   script(src='/javascripts/upload.js')
