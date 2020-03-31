@@ -1,11 +1,7 @@
-const pollStepFunction = arn => {
-  const params = {
-    executionArn: arn
-  }
-
+const pollStepFunction = id => {
   const interval = setInterval(async () => {
     try {
-      const response = await fetch(`https://568efiwqxe.execute-api.us-west-1.amazonaws.com/dev?executionArn=${arn}`)
+      const response = await fetch(`https://568efiwqxe.execute-api.us-west-1.amazonaws.com/prod?id=${id}`)
       const data = await response.json()
 
       const { status } = data
@@ -30,9 +26,9 @@ const pollStepFunction = arn => {
 
 const getKeyFromUrl = () => {
   const urlParams = new URLSearchParams(window.location.search)
-  const arn = urlParams.get('arn')
+  const id = urlParams.get('id')
 
-  pollStepFunction(arn)
+  pollStepFunction(id)
 }
 
 getKeyFromUrl()
