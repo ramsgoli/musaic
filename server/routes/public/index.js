@@ -58,7 +58,6 @@ class PublicRouter {
       const data = await req.spotifyApi.getUserPlaylists({ limit: 50 })
       res.render('playlistselection', { playlists: data.body.items })
     } catch (err) {
-      console.error(err)
       next(err)
     }
   }
@@ -71,7 +70,6 @@ class PublicRouter {
 
       return res.render('confirmplaylist', { name, imageUrl })
     } catch (err) {
-      console.error(err)
       next(err)
     }
   }
