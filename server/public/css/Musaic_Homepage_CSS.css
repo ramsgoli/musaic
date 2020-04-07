@@ -10,8 +10,14 @@
 	box-sizing: border-box;
     padding: 0;
     margin: 0;
-    margin-bottom: 50px;
 }
+
+@media screen and (max-width: 900px) { 
+	#top_container{
+		margin-bottom: 50px;
+	}
+}
+
 .flexmenu {
   width: 100%;
   background-color: #000;
@@ -104,6 +110,7 @@
   }
 }
 
+
 #showcase{
 	display: flex;
 	flex-direction: row;
@@ -154,6 +161,22 @@
 	font-size: 120%;
 	font-weight: bold;
 	justify-content: center;
+	align-items: center;
+
+ -webkit-box-shadow: rgba(0, 190, 228) 0 3px 4px;
+  -moz-box-shadow: rgba(0, 190, 228) 0 3px 4px;
+  box-shadow: rgba(0, 190, 228) 0 3px 4px;
+}
+
+#Create_Musaic a{
+	display: flex;
+	text-decoration: none;
+	border-style: none;
+	background-color: #00BEE4;
+	font-size: 120%;
+	font-weight: bold;
+	justify-content: center;
+	align-items: center;
 
  -webkit-box-shadow: rgba(0, 190, 228) 0 3px 4px;
   -moz-box-shadow: rgba(0, 190, 228) 0 3px 4px;
@@ -234,8 +257,9 @@
 	  width: 50%;
 }
 
-@media screen and (max-width: 600px) { 
+@media screen and (max-width: 900px) { 
 	#MS_Text{
+		width: 90%;
 		font-size: 140%;
 	}
 }
@@ -255,10 +279,40 @@
 }
 
 #steps{
+	display: flex;
 	flex-direction: row;
+	justify-content: space-around;
+	align-content: space-around;
+	width: 90%;
 }
 
+.step_box{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+    font-size: 24px;
+}
 
+.step_box img{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@media screen and (max-width: 900px) { 
+ 	#steps{
+ 		flex-direction: column;
+ 	}
+ }
+
+@media screen and (max-width: 600px) { 
+ 	.step_box img{
+ 		width: 50%;
+ 	}
+ }
 
 #GenandMS_Gallery_spacer{
 	display: flex;
@@ -268,7 +322,6 @@
 #Gallery_Container{
 	display: flex;
 	max-width: 100%;
-	margin-top: 50px;
 	justify-content: center;
 	align-items: center;
 	flex-grow: 1;
@@ -284,8 +337,9 @@
 	  width: 50%;
 }
 
-@media screen and (max-width: 600px) { 
+@media screen and (max-width: 900px) { 
 	#Gallery_Container p{
+		width: 90%;
 		font-size: 140%;
 	}
 }
