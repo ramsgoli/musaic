@@ -11,7 +11,7 @@ const pollStepFunction = id => {
         case "SUCCEEDED":
           clearInterval(interval)
           const output = JSON.parse(data.output)
-          window.location.href=`/result?key=${output.body.object_url}`
+          window.location.href=`/result`
           break
         default:
           clearInterval(interval)
