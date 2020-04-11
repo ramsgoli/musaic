@@ -1,9 +1,11 @@
-const urlParams = new URLSearchParams(window.location.search)
+const fileName = sessionStorage.getItem('fileName')
+const fileUrl = `https://musaic.s3-us-west-1.amazonaws.com/generated/${fileName}`
+
 const img = document.createElement('img')
-img.src = urlParams.get('key')
+img.src = fileUrl
 const resultDiv = document.getElementById('result')
 resultDiv.appendChild(img)
 
 document.getElementById('download').addEventListener('click', () => {
-  window.location.href=urlParams.get('key')
+  window.location.href=fileUrl
 })
