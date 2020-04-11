@@ -127,10 +127,28 @@
 
 #result{
     display: flex;
-    width: 40%;
+    width: 30%;
     align-items: center;
     justify-content:  center;
     flex-direction: column;
+}
+
+@media screen and (max-width: 1200px) { 
+    #result{
+      width:40%;
+    }
+}
+
+@media screen and (max-width: 1000px) { 
+    #result{
+      width:50%;
+    }
+}
+
+@media screen and (max-width: 700px) { 
+    #result{
+      width:75%;
+    }
 }
 
 #buttons{
@@ -153,6 +171,7 @@
     -webkit-box-shadow: rgba(0, 190, 228) 0 3px 4px;
     -moz-box-shadow: rgba(0, 190, 228) 0 3px 4px;
     box-shadow: rgba(0, 190, 228) 0 3px 4px;
+  cursor: pointer;
 }
 
 

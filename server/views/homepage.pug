@@ -6,13 +6,13 @@ block headContent
 block bodyContent
   #showcase
     #showcase_photo
-      img(src='images/showcase.png')
+      img(src='/images/showcase.png')
     #GenandMS
-      img#center_logobw(src='images/logobw.png')
+      img#center_logobw(src='/images/logobw.png')
       buttons#Create_Musaic(href='/uploadphoto')
         a(href='/uploadphoto') Create Musaic
       p WITH
-      img#spotify_logo(src='images/spotify_logo.png')
+      img#spotify_logo(src='/images/spotify_logo.png')
   #MS
     h2 Misson
     p#MS_Text
@@ -32,27 +32,26 @@ block bodyContent
     h2 How It Works
     #steps
       .step_box
-        img(src='images/steps1.png')
+        img(src='/images/steps1.png')
         p Upload Your Photo
       .step_box
-        img(src='images/steps2.png')
+        img(src='/images/steps2.png')
         p
           | Select Your 
           br
           |  Spotify Playlist
       .step_box
-        img(src='images/steps3.png')
+        img(src='/images/steps3.png')
         p
           | Download and Share 
           br
           |       Your Musaic
-  #GenandMS_Gallery_spacer
-  #Gallery_Container
-    #Gallery_Head
+    #Gallery_Container
+      #Gallery_Head
       h2 Gallery
-    p
-      | This Gallery is going to host some of our favorite Musaic pieces and we want YOU to send us your Musaic pieces! 
-      br
-      br
-      |     Email us the downloaded image and a display name (or social media handle).
+      p
+        | This Gallery is going to host some of our favorite Musaic pieces and we want YOU to send us your Musaic pieces! 
+        br
+        br
+        |     Email us the downloaded image and a display name (or social media handle).
     #Gallery

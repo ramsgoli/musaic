@@ -211,13 +211,10 @@
     #viz{
         margin-bottom:30px;
     }
-    #Your_Playlists{
-      margin-top:100px;
-    }
     #vizandinstr{
         align-items: center;
-        margin-top: -102px;
-        margin-bottom: -100px;
+       /* margin-top: -102px;*/
+       /* margin-bottom: -100px;*/
     }
 
 }
@@ -237,9 +234,6 @@
     }
     #instruction p{
       width: 200%;
-    }
-    #Your_Playlists{
-      margin-top:100px;
     }
     #vizandinstr{
         flex-direction:column;

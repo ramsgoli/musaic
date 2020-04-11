@@ -162,6 +162,7 @@
 	font-weight: bold;
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
 
  -webkit-box-shadow: rgba(0, 190, 228) 0 3px 4px;
   -moz-box-shadow: rgba(0, 190, 228) 0 3px 4px;
@@ -208,7 +209,7 @@
  	}
  }
 
- @media screen and (max-width: 700px) { 
+ @media screen and (max-width: 750px) { 
  	#Create_Musaic{
  		width:80%;
 		font-size:120%;
@@ -218,6 +219,15 @@
 	}
  }
 
+ @media screen and (max-width: 550px) { 
+ 	#Create_Musaic{
+ 		width:80%;
+		font-size:100%;
+ 	}
+ 	#spotify_logo{
+		width:70%;
+	}
+ }
   @media screen and (max-width: 500px) { 
  	#Create_Musaic{
  		width:100%;
@@ -275,6 +285,7 @@
 	align-items: center;
 	flex-direction: column;
     text-align: center; 
+    margin-bottom: 50px;
 
 }
 
@@ -329,6 +340,7 @@
 	align-items: center;
 	flex-direction: column;
     text-align: center; 
+    margin-bottom: 50px;
 }
 
 #Gallery_Container p{
