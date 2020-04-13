@@ -9,10 +9,10 @@ from mosaic import mosaic
 import base64
 import boto3
 
-def download_album_cover_func(url, directory):
-    file_name = url.split("/")[-1]
+def download_album_cover_func(image, directory):
+    file_name = image[0]
     file_path = path.join(directory, file_name)
-    urlretrieve(url, file_path)
+    urlretrieve(image[1], file_path)
 
 def get_album_ids(sp, playlist_id):
     user_id = sp.me()["id"]
@@ -34,11 +34,11 @@ def download_album_cover_art(sp, album_ids, temp_dir):
 
     for i in range(0, len(album_ids), 20):
         albums = sp.albums(album_ids[i:i+20])
-        image_urls = [album["images"][0]["url"] for album in albums["albums"]]
+        image_info = [(album["name"], album["images"][0]["url"]) for album in albums["albums"]]
 
         # for each image URL, instantiate a process to download
-        for image_url in image_urls:
-            p = multiprocessing.Process(target=download_album_cover_func, args=(image_url, temp_dir))
+        for image in image_info:
+            p = multiprocessing.Process(target=download_album_cover_func, args=(image, temp_dir))
             processes.append(p)
             p.start()
 
@@ -100,7 +100,8 @@ def lambda_handler(event, context):
         input_image_path = get_image_from_s3(DEV, file_name)
 
         # generate mosaic
-        output_image_path = mosaic(input_image_path, temp_dir)
+        output_image_path, counts = mosaic(input_image_path, temp_dir)
+        print(counts)
 
         # save generated image to s3
         output_image_key = "generated/{}".format(file_name)

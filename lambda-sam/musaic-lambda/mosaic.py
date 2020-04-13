@@ -47,8 +47,8 @@ class TileProcessor:
                 tile_path = os.path.join(root, tile_name)
                 large_tile, small_tile = self.__process_tile(tile_path)
                 if large_tile:
-                    large_tiles.append(large_tile)
-                    small_tiles.append(small_tile)
+                    large_tiles.append((tile_name, large_tile))
+                    small_tiles.append((tile_name, small_tile))
         
         print 'Processed %s tiles.' % (len(large_tiles),)
 
@@ -153,14 +153,16 @@ class MosaicImage:
 
 def compose(original_img, tiles, tiles_path):
     print 'Building mosaic, press Ctrl-C to abort...'
-    print('number of workers: ', WORKER_COUNT)
+    counts = {}
     original_img_large, original_img_small = original_img
     tiles_large, tiles_small = tiles
 
     mosaic = MosaicImage(original_img_large)
 
-    all_tile_data_large = map(lambda tile : list(tile.getdata()), tiles_large)
-    all_tile_data_small = map(lambda tile : list(tile.getdata()), tiles_small)
+    all_tile_data_large = map(lambda tile : list(tile[1].getdata()), tiles_large)
+    all_tile_data_small = map(lambda tile : list(tile[1].getdata()), tiles_small)
+
+    album_names = [album[0] for album in tiles_large]
 
     try:
         # assemble final image
@@ -170,6 +172,10 @@ def compose(original_img, tiles, tiles_path):
         data = fit_tiles(start_row, end_row, mosaic.x_tile_count, all_tile_data_small, original_img_small)
         for img_coords, best_fit_tile_index in data:
             tile_data = all_tile_data_large[best_fit_tile_index]
+            if album_names[best_fit_tile_index] not in counts:
+                counts[album_names[best_fit_tile_index]] = 1
+            else:
+                counts[album_names[best_fit_tile_index]] += 1
             mosaic.add_tile(tile_data, img_coords)
 
     except KeyboardInterrupt:
@@ -182,7 +188,7 @@ def compose(original_img, tiles, tiles_path):
         mosaic.save(image_path)
         print '\nFinished, output is in', image_path
 
-        return image_path
+        return (image_path, counts)
 
 
 def mosaic(img_path, tiles_path):
