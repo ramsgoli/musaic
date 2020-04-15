@@ -4,10 +4,13 @@ var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 
+const { addHeapTracking } = require('./heap')
 const apiRouter = require("./routes/api")
 const publicRouter = require("./routes/public")
 
 var app = express()
+
+app.use(addHeapTracking)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
