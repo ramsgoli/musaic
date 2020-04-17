@@ -29,9 +29,9 @@
 }
 #logo{
   display: flex;
-  width:25%;
-  height:50%;
-  /*margin-top: 10px;*/
+  width:250px;
+  /*height:50%;
+  margin-top: 10px;*/
   margin-left: 10px;
   align-items: flex-start;
   margin-left: 0;
