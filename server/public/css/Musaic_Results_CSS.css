@@ -125,6 +125,21 @@
     margin-top: -70px;
 }
 
+#result-with-zoom {
+	display: flex;
+	flex-flow: row;
+}
+
+#result-with-zoom img {
+	width: 40%;
+}
+
+#result-zoom {
+	width: 55%;
+	position: relative;
+	margin-left: 5%;
+}
+
 #result{
     display: flex;
     width: 50%;
