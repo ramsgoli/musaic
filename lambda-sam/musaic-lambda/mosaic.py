@@ -115,6 +115,7 @@ def fit_tiles(row_start, row_end, x_tile_count, tiles_data, original_img_small, 
     tile_fitter = TileFitter(tiles_data)
 
     coords_list = []
+    count = {}
 
     for x in range(x_tile_count):
         for y in range(row_start, row_end):
@@ -125,11 +126,8 @@ def fit_tiles(row_start, row_end, x_tile_count, tiles_data, original_img_small, 
             tile_index = tile_fitter.get_best_fit_tile(img_data)
             coords_list.append((img_coords, tile_index))
 
-    print("I'm finished")
     conn.send(coords_list)
-    print("sent data")
     conn.close()
-    print("closed connection")
 
 class ProgressCounter:
     def __init__(self, total):
@@ -158,7 +156,6 @@ class MosaicImage:
 
 def compose(original_img, tiles, tiles_path):
     print 'Building mosaic, press Ctrl-C to abort...'
-    counts = {}
     original_img_large, original_img_small = original_img
     tiles_large, tiles_small = tiles
 
@@ -166,6 +163,8 @@ def compose(original_img, tiles, tiles_path):
 
     all_tile_data_large = map(lambda tile : list(tile[1].getdata()), tiles_large)
     all_tile_data_small = map(lambda tile : list(tile[1].getdata()), tiles_small)
+
+    counts = {}
 
     # create a list to keep all processes
     processes = []
@@ -199,6 +198,10 @@ def compose(original_img, tiles, tiles_path):
             data = parent_connection.recv()
             for img_coords, best_fit_tile_index in data:
                 tile_data = all_tile_data_large[best_fit_tile_index]
+                if album_names[best_fit_tile_index] not in counts:
+                    counts[album_names[best_fit_tile_index]] = 1
+                else:
+                    counts[album_names[best_fit_tile_index]] += 1
                 mosaic.add_tile(tile_data, img_coords)
 
         # make sure that all processes have finished
