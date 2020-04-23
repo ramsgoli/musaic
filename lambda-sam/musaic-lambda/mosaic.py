@@ -1,5 +1,6 @@
 import sys
 import os
+import datetime
 from PIL import Image
 from multiprocessing import Process, cpu_count, Pipe
 
@@ -164,6 +165,7 @@ def compose(original_img, tiles, tiles_path):
 
     album_names = [album[0] for album in tiles_large]
 
+    start_time = datetime.datetime.now()
     try:
         # assemble final image
         start_row = 0
@@ -182,6 +184,9 @@ def compose(original_img, tiles, tiles_path):
         print '\nHalting, saving partial image please wait...'
 
     finally:
+        end_time = datetime.datetime.now()
+        delta = end_time - start_time
+        print("Time: {}".format(int(delta.total_seconds() * 1000)))
         image_path = os.path.join(tiles_path, OUT_FILE)
         print 'Writing file to ', image_path
 
