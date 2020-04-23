@@ -115,7 +115,6 @@ def fit_tiles(row_start, row_end, x_tile_count, tiles_data, original_img_small, 
     tile_fitter = TileFitter(tiles_data)
 
     coords_list = []
-    count = {}
 
     for x in range(x_tile_count):
         for y in range(row_start, row_end):
@@ -126,8 +125,10 @@ def fit_tiles(row_start, row_end, x_tile_count, tiles_data, original_img_small, 
             tile_index = tile_fitter.get_best_fit_tile(img_data)
             coords_list.append((img_coords, tile_index))
 
+    print("uhhh")
     conn.send(coords_list)
     conn.close()
+    print("done")
 
 class ProgressCounter:
     def __init__(self, total):
