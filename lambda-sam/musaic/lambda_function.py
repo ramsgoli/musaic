@@ -79,52 +79,43 @@ def save_image_to_s3(DEV, image_path, image_key):
 
 def lambda_handler(event, context):
     # get correct env
-    try:
-        playlist_id = event["playlist_id"]
-        file_name = event["file_name"]
-        access_token = event["access_token"]
-        DEV = event.get("dev", False)
+    playlist_id = event["playlist_id"]
+    file_name = event["file_name"]
+    access_token = event["access_token"]
+    DEV = event.get("dev", False)
 
-        # Create a spotify client to access their playlists
-        sp = spotipy.Spotify(auth=access_token)
-        
-        # get all unique album ids 
-        album_ids = get_album_ids(sp, playlist_id)
+    # Create a spotify client to access their playlists
+    sp = spotipy.Spotify(auth=access_token)
+    
+    # get all unique album ids 
+    album_ids = get_album_ids(sp, playlist_id)
 
-        # download album cover
-        album_covers_dir = tempfile.mkdtemp()
-        download_album_cover_art(sp, album_ids, album_covers_dir)
+    # download album cover
+    album_covers_dir = tempfile.mkdtemp()
+    download_album_cover_art(sp, album_ids, album_covers_dir)
 
-        # fetch image stored in s3
-        input_image_path = get_image_from_s3(DEV, file_name)
+    # fetch image stored in s3
+    input_image_path = get_image_from_s3(DEV, file_name)
 
-        # generate mosaic
-        output_image_path, counts = mosaic(input_image_path, album_covers_dir)
+    # generate mosaic
+    output_image_path, counts = mosaic(input_image_path, album_covers_dir)
 
-        counter = Counter(counts)
+    counter = Counter(counts)
 
-        # save generated image to s3
-        output_image_key = "generated/{}".format(file_name)
-        object_url = save_image_to_s3(DEV, output_image_path, output_image_key)
+    # save generated image to s3
+    output_image_key = "generated/{}".format(file_name)
+    object_url = save_image_to_s3(DEV, output_image_path, output_image_key)
 
-        # clean up
-        shutil.rmtree(album_covers_dir)
+    # clean up
+    shutil.rmtree(album_covers_dir)
 
-        return {
-            "statusCode": 200,
-            "body": {
-                "object_url": object_url,
-                "counts": json.loads(json.dumps(counter.most_common(5)))
-            }
+    return {
+        "statusCode": 200,
+        "body": {
+            "object_url": object_url,
+            "counts": json.loads(json.dumps(counter.most_common(5)))
         }
-
-    except Exception as e:
-        # Log the error to cloudwatch
-        print(e)
-        
-        return {
-            "statusCode": 400
-        }
+    }
 
 
 if __name__ == '__main__':

@@ -20,6 +20,39 @@ Resources:
       MemorySize: 1024
       Policies:
         - AmazonS3FullAccess
+  MusaicGeneratorStepFunction:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+      RoleArn: !GetAtt MusaicGeneratorStepFunctionIamRole.Arn
+      StateMachineName: MusaicGenerator-StateMachine
+      DefinitionString: !Sub |-
+        {
+          "Comment": "Step Function to asynchronously execute musaic lambda function",
+          "StartAt": "Generate",
+          "States": {
+            "Generate": {
+              "Type": "Task",
+              "Resource": "${MusaicGeneratorFunction.Arn}",
+              "End": true
+            }
+          }
+        }
+  MusaicGeneratorStepFunctionIamRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - states.amazonaws.com
+            Action: 
+                - 'sts:AssumeRole'
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/CloudWatchFullAccess
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaRole
 
 Outputs:
   MusaicGeneratorFunction:

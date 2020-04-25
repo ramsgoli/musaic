@@ -34,6 +34,7 @@ document.getElementById("generate_photo_form").addEventListener('submit', async 
     input: JSON.stringify(input),
   }
 
+  const stage = isDev() ? 'dev' : 'prod'
   // call api with access token
   try {
     const response = await fetch(`https://568efiwqxe.execute-api.us-west-1.amazonaws.com/prod`, {
