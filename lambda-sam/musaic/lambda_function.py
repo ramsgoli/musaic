@@ -1,5 +1,4 @@
 import json
-import operator
 import spotipy
 import tempfile
 from urllib import urlretrieve
@@ -80,13 +79,11 @@ def save_image_to_s3(DEV, image_path, image_key):
 
 def lambda_handler(event, context):
     # get correct env
-    print(environ.get("DEV"))
-    DEV = True if environ.get("DEV") == "TRUE" else False
-    print(DEV)
     try:
         playlist_id = event["playlist_id"]
         file_name = event["file_name"]
         access_token = event["access_token"]
+        DEV = event.get("dev", False)
 
         # Create a spotify client to access their playlists
         sp = spotipy.Spotify(auth=access_token)
@@ -103,6 +100,7 @@ def lambda_handler(event, context):
 
         # generate mosaic
         output_image_path, counts = mosaic(input_image_path, album_covers_dir)
+
         counter = Counter(counts)
 
         # save generated image to s3
@@ -116,7 +114,7 @@ def lambda_handler(event, context):
             "statusCode": 200,
             "body": {
                 "object_url": object_url,
-                "counts": counter.most_common(5)
+                "counts": json.loads(json.dumps(counter.most_common(5)))
             }
         }
 

@@ -48,8 +48,8 @@ class TileProcessor:
                 tile_path = os.path.join(root, tile_name)
                 large_tile, small_tile = self.__process_tile(tile_path)
                 if large_tile:
-                    large_tiles.append(large_tile)
-                    small_tiles.append(small_tile)
+                    large_tiles.append((tile_name, large_tile))
+                    small_tiles.append((tile_name, small_tile))
         
         print 'Processed %s tiles.' % (len(large_tiles),)
 
@@ -163,10 +163,12 @@ def compose(original_img, tiles, tiles_path):
 
     mosaic = MosaicImage(original_img_large)
 
-    all_tile_data_large = map(lambda tile : list(tile.getdata()), tiles_large)
-    all_tile_data_small = map(lambda tile : list(tile.getdata()), tiles_small)
+    all_tile_data_large = map(lambda tile : list(tile[1].getdata()), tiles_large)
+    all_tile_data_small = map(lambda tile : list(tile[1].getdata()), tiles_small)
 
+    # store album cover usage
     counts = {}
+    album_cover_names = [tile_data[0] for tile_data in tiles_large]
 
     # create a list to keep all processes
     processes = []
@@ -199,6 +201,10 @@ def compose(original_img, tiles, tiles_path):
         for parent_connection in parent_connections:
             data = parent_connection.recv()
             for img_coords, best_fit_tile_index in data:
+                if album_cover_names[best_fit_tile_index] not in counts:
+                    counts[album_cover_names[best_fit_tile_index]] = 1
+                else:
+                    counts[album_cover_names[best_fit_tile_index]] += 1
                 tile_data = all_tile_data_large[best_fit_tile_index]
                 mosaic.add_tile(tile_data, img_coords)
 

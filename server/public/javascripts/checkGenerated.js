@@ -3,6 +3,7 @@ const pollStepFunction = id => {
     try {
       const response = await fetch(`https://568efiwqxe.execute-api.us-west-1.amazonaws.com/prod?id=${id}`)
       const data = await response.json()
+      console.log(data)
 
       const { status } = data
       switch (status) {

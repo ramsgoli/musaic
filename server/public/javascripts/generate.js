@@ -1,3 +1,7 @@
+const isDev = () => {
+  return window.location.hostname === 'localhost'
+}
+
 const getCookie = name => {
     var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return v ? v[2] : null;
@@ -20,6 +24,10 @@ document.getElementById("generate_photo_form").addEventListener('submit', async 
     playlist_id: playlistId,
     file_name: fileName,
     access_token: accessToken
+  }
+
+  if (isDev()) {
+    input['dev'] = true
   }
 
   const body = {
