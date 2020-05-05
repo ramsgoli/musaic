@@ -30,6 +30,7 @@ class PublicRouter {
       spotifyApi.setAccessToken(access_token)
     }
     req.spotifyApi = spotifyApi
+
     next()
   }
 
