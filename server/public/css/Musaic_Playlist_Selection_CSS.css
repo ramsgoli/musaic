@@ -153,7 +153,6 @@
     border-style: none;
     align-items: center;
     justify-content:  center;
-    padding: 30px 0px;
 }
 
 
@@ -211,6 +210,9 @@
     #viz{
         margin-bottom:30px;
     }
+    #viz img{
+        width:200px;
+    }
     #vizandinstr{
         align-items: center;
        /* margin-top: -102px;*/
@@ -224,16 +226,8 @@
         flex-direction:column;
         align-items: center;
     }
-    #viz{
-        margin:20px;
-    }
     #instruction{
-      display: flex;
-      margin-top: 30px;
-        margin-bottom: 30px;
-    }
-    #instruction p{
-      width: 200%;
+      width: 100%;
     }
     #vizandinstr{
         flex-direction:column;
@@ -242,6 +236,11 @@
     }
 }
 
+@media only screen and (max-width: 600px) { 
+    #viz img{
+        width:160px;
+    }
+}
 
 #MS {
   display: flex;
@@ -302,6 +301,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+    margin-top: 50px;
 }
 
 #Gallery{
@@ -337,6 +337,7 @@
 	/*max-width: 62.5%;*/
   max-width: 100%;
 }
+
 .playlist_item{
   display: flex;
   align-items: center;

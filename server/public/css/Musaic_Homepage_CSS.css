@@ -211,14 +211,19 @@
 
  @media screen and (max-width: 750px) { 
  	#Create_Musaic{
- 		width:80%;
-		font-size:120%;
+ 		/*width:80%;*/
+		font-size:100%;
  	}
  	#spotify_logo{
 		width:70%;
 	}
  }
 
+@media screen and (max-width: 650px) { 
+	#Create_Musaic a{
+		font-size: 100%;
+	}
+}
  @media screen and (max-width: 550px) { 
  	#Create_Musaic{
  		width:80%;
@@ -237,6 +242,15 @@
 		width:90%;
 	}
  }
+
+@media screen and (max-width: 400px) { 
+	#Create_Musaic{
+		width: 100%;
+	}
+	#Create_Musaic a{
+		font-size: 80%;
+	}
+}
 
 @media screen and (max-width: 700px){
 	#logo{
