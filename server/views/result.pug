@@ -2,14 +2,18 @@ extends layout
 
 block headContent
   link(rel='stylesheet', href='/css/Musaic_Results_CSS.css')
+  link(rel='stylesheet', href='/css/drift-basic.min.css')
 
 block bodyContent
   #result_container
     h2 Your Musaic
-    #result
-      // INSERT IMG HERE
+    #result-with-zoom
+      img#result-img
+      #result-zoom
+        p Hover over the image to zoom in!
   #buttons
     #download Download
     
+  script(src='/javascripts/Drift.js')
   script(src='/javascripts/loadResult.js')
 

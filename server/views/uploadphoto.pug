@@ -12,12 +12,11 @@ block bodyContent
             img(src='images/Upload_Photo_Icon.png')
           #instruction
             h2(style='margin: 0px 0px 10px;') Upload Photo
-            p(style='font-size: 20px; margin: 0px;width: 63%')
+            p(style='font-size: 20px; margin: 0px;')
               | We take the album cover images
               | from your playlists and
               | we render your photo
               | using the album cover images as tiles
-            p(style='font-size: 25px;')  Please upload a jpeg or png file
         form#upload_photo_form
           input(type='file' name='files[]' accept='image/png, image/jpeg')
           input(type='submit' value='Submit' name='submit')

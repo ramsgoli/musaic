@@ -122,7 +122,7 @@
       display: flex;
       height: 330px;
       width: 100%;
-      margin-top: 175px;
+      margin-top: 150px;
       justify-content: center;
       align-items: center;
       flex-direction: column;
@@ -132,7 +132,7 @@
     #stage img{
         animation-duration: 2s;
         animation-iteration-count: infinite;
-        width:350px;
+        width:275px;
     }
     .bounce-2 {
         animation-name: bounce-2;
@@ -154,7 +154,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width:50%;
   font-size: 24px;
 }
 
