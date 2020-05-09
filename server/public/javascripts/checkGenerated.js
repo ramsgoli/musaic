@@ -11,6 +11,7 @@ const pollStepFunction = id => {
         case "SUCCEEDED":
           clearInterval(interval)
           const output = JSON.parse(data.output)
+          sessionStorage.setItem("counts", output.counts)
           window.location.href=`/result`
           break
         default:
