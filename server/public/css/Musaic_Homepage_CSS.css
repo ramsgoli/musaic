@@ -147,15 +147,15 @@
 }
 
 #center_logobw{
-	width: 60%;
+	width: 308px;
   	/*margin-top: -130px;*/
   	margin-bottom: -10px;
   }
 
  #Create_Musaic{
 	display: flex;
-	width:45%;
-	height:12%;
+	width:201px;
+	height:63px;
 	border-style: none;
 	background-color: #00BEE4;
 	font-size: 120%;
@@ -278,12 +278,11 @@
 #MS_Text{
 	  margin:0px;
 	  font-size: 24px;
-	  width: 50%;
+	  width: 500px;
 }
 
 @media screen and (max-width: 900px) { 
 	#MS_Text{
-		width: 90%;
 		font-size: 140%;
 	}
 }
@@ -360,12 +359,12 @@
 #Gallery_Container p{
 	margin:0px;
 	  font-size: 24px;
-	  width: 50%;
+	  width: 500px;
 }
 
 @media screen and (max-width: 900px) { 
 	#Gallery_Container p{
-		width: 90%;
+		width: 500px;
 		font-size: 140%;
 	}
 }
@@ -385,6 +384,26 @@
 	align-items: center;
 }
 
+#Gallery_Container a:link{
+  color:white;
+  font-weight: bold;
+  text-decoration:underline;
+}
+
+#Gallery_Container a:visited{
+  color:white;
+  text-decoration:none;
+}
+
+#Gallery_Container a:hover{
+  color:#808080;
+  text-decoration: none;
+}
+
+#Gallery_Container a:active{
+  color:green;
+  text-decoration: none;
+}
 /*#Gallery_Col1{
 	display: flex;
 	width: 100%;

@@ -1,4 +1,5 @@
 import json
+import operator
 import spotipy
 import tempfile
 from urllib import urlretrieve
@@ -8,6 +9,7 @@ import shutil
 from mosaic import mosaic
 import base64
 import boto3
+from collections import Counter 
 
 def download_album_cover_func(image, directory):
     file_name = image[0]
@@ -48,7 +50,6 @@ def download_album_cover_art(sp, album_ids, temp_dir):
 
     print "Finished downloading all files"
 
-
 def write_photo_data_to_file(file_data, temp_dir):
     file_path = path.join(temp_dir, "input_image.jpeg")
     fh = open(file_path, "wb")
@@ -87,33 +88,35 @@ def lambda_handler(event, context):
         file_name = event["file_name"]
         access_token = event["access_token"]
 
+        # Create a spotify client to access their playlists
         sp = spotipy.Spotify(auth=access_token)
         
         # get all unique album ids 
         album_ids = get_album_ids(sp, playlist_id)
 
         # download album cover
-        temp_dir = tempfile.mkdtemp()
-        download_album_cover_art(sp, album_ids, temp_dir)
+        album_covers_dir = tempfile.mkdtemp()
+        download_album_cover_art(sp, album_ids, album_covers_dir)
 
         # fetch image stored in s3
         input_image_path = get_image_from_s3(DEV, file_name)
 
         # generate mosaic
-        output_image_path, counts = mosaic(input_image_path, temp_dir)
-        print(counts)
+        output_image_path, counts = mosaic(input_image_path, album_covers_dir)
+        counter = Counter(counts)
 
         # save generated image to s3
         output_image_key = "generated/{}".format(file_name)
         object_url = save_image_to_s3(DEV, output_image_path, output_image_key)
 
         # clean up
-        shutil.rmtree(temp_dir)
+        shutil.rmtree(album_covers_dir)
 
         return {
             "statusCode": 200,
             "body": {
-                "object_url": object_url
+                "object_url": object_url,
+                "counts": counter.most_common(5)
             }
         }
 
