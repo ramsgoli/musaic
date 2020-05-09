@@ -192,7 +192,7 @@
     border-width: 2px;
     border-color: #808080;*/
     border-style: none;
-    width: 50%;
+    width: 315px;
     justify-content: center;
     align-items: center;
     align-content: center;
@@ -225,9 +225,6 @@
     #col{
         flex-direction:column;
         align-items: center;
-    }
-    #instruction{
-      width: 100%;
     }
     #vizandinstr{
         flex-direction:column;
