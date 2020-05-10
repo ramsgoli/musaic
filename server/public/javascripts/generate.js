@@ -1,3 +1,7 @@
+const isDev = () => {
+  return window.location.hostname === 'localhost'
+}
+
 const getCookie = name => {
     var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return v ? v[2] : null;
@@ -22,10 +26,15 @@ document.getElementById("generate_photo_form").addEventListener('submit', async 
     access_token: accessToken
   }
 
+  if (isDev()) {
+    input['dev'] = true
+  }
+
   const body = {
     input: JSON.stringify(input),
   }
 
+  const stage = isDev() ? 'dev' : 'prod'
   // call api with access token
   try {
     const response = await fetch(`https://568efiwqxe.execute-api.us-west-1.amazonaws.com/prod`, {

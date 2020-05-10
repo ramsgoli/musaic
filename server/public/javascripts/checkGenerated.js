@@ -1,8 +1,14 @@
+const isDev = () => {
+  return window.location.hostname === 'localhost'
+}
+
 const pollStepFunction = id => {
   const interval = setInterval(async () => {
+    const stage = isDev() ? 'dev' : 'prod'
     try {
       const response = await fetch(`https://568efiwqxe.execute-api.us-west-1.amazonaws.com/prod?id=${id}`)
       const data = await response.json()
+      console.log(data)
 
       const { status } = data
       switch (status) {
