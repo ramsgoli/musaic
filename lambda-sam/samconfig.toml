@@ -8,3 +8,4 @@ s3_prefix = "lambda-sam"
 region = "us-west-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
+

@@ -1,6 +1,6 @@
 const getMusaicBucket = () => {
   if (window.location.hostname === 'localhost') {
-    return 'musaic'
+    return 'musaic-dev'
   } else {
     return 'musaic'
   }
@@ -14,9 +14,11 @@ const insertImgTag = () => {
   img.src = fileUrl
   const resultDiv = document.getElementById('result-with-zoom')
   resultDiv.insertBefore(img, resultDiv.firstChild)
+
+  return img
 }
 
-const initializeDrift = () => {
+const initializeDrift = (img) => {
   new Drift(img, {
     sourceAttribute: 'src',
     paneContainer: document.querySelector('#result-zoom'),
@@ -35,8 +37,8 @@ const initializeDownloadButton = () => {
 }
 
 const run = () => {
-  insertImgTag()
-  initializeDrift()
+  const img = insertImgTag()
+  initializeDrift(img)
   initializeDownloadButton()
 }
 
