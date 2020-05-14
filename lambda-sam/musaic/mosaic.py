@@ -206,11 +206,6 @@ def compose(original_img, tiles, tiles_path):
     return image_path, counts
 
 
-def mosaic(img_path, tiles_path):
-    tiles_data = TileProcessor(tiles_path).get_tiles()
-    image_data = TargetImage(img_path).get_data()
-    return compose(image_data, tiles_data, tiles_path)
-
 if __name__ == '__main__':
     if len(sys.argv) < 3:
         print 'Usage: %s <image> <tiles directory>\r' % (sys.argv[0],)

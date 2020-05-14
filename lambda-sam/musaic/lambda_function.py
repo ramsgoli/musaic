@@ -4,7 +4,7 @@ from urllib import urlretrieve
 import multiprocessing
 from os import listdir, path, rename, path, environ
 import shutil
-from mosaic import mosaic
+from mosaic import compose, TileProcessor, TargetImage
 import boto3
 from collections import Counter
 
@@ -30,7 +30,9 @@ class LambdaHandler:
         input_image_path = self.get_image_from_s3()
 
         # generate mosaic
-        output_image_path, counts = mosaic(input_image_path, album_covers_dir)
+        tiles_data = TileProcessor(album_covers_dir).get_tiles()
+        image_data = TargetImage(input_image_path).get_data()
+        output_image_path, counts = compose(image_data, tiles_data, album_covers_dir)
 
         self.counter = Counter(counts)
 
