@@ -2,7 +2,7 @@ import sys
 import os
 import datetime
 from PIL import Image
-from multiprocessing import Process, cpu_count, Pipe
+from multiprocessing import Process, Pipe
 
 # Change these 3 config parameters to suit your needs...
 TILE_SIZE      = 50        # height/width of mosaic tiles in pixels
@@ -40,8 +40,6 @@ class TileProcessor:
         large_tiles = []
         small_tiles = []
 
-        print 'Reading tiles from \'%s\'...' % (self.tiles_directory, )
-
         # search the tiles directory recursively
         for root, subFolders, files in os.walk(self.tiles_directory):
             for tile_name in files:
@@ -54,6 +52,7 @@ class TileProcessor:
         print 'Processed %s tiles.' % (len(large_tiles),)
 
         return (large_tiles, small_tiles)
+
 
 class TargetImage:
     def __init__(self, image_path):
@@ -76,9 +75,8 @@ class TargetImage:
 
         image_data = (large_img.convert('RGB'), small_img.convert('RGB'))
 
-        print 'Main image processed.'
-
         return image_data
+
 
 class TileFitter:
     def __init__(self, tiles_data):
@@ -124,21 +122,9 @@ def fit_tiles(row_start, row_end, x_tile_count, tiles_data, original_img_small, 
             tile_index = tile_fitter.get_best_fit_tile(img_data)
             coords_list.append((img_coords, tile_index))
 
-    print("I'm finished")
     conn.send(coords_list)
-    print("sent data")
     conn.close()
-    print("closed connection")
 
-class ProgressCounter:
-    def __init__(self, total):
-        self.total = total
-        self.counter = 0
-
-    def update(self):
-        self.counter += 1
-        sys.stdout.write("Progress: %s%% %s" % (100 * self.counter / self.total, "\r"))
-        sys.stdout.flush();
 
 class MosaicImage:
     def __init__(self, original_img):
@@ -179,52 +165,45 @@ def compose(original_img, tiles, tiles_path):
     num_rows = mosaic.y_tile_count / WORKER_COUNT
     start_time = datetime.datetime.now()
 
-    try:
-        for p in range(WORKER_COUNT):
-            # create a pipe for communication
-            parent_conn, child_conn = Pipe()
-            parent_connections.append(parent_conn)
+    for p in range(WORKER_COUNT):
+        # create a pipe for communication
+        parent_conn, child_conn = Pipe()
+        parent_connections.append(parent_conn)
 
-            # determine which tiles this process will work on
-            start_row = p * num_rows
-            end_row = min(start_row + num_rows, mosaic.y_tile_count)
+        # determine which tiles this process will work on
+        start_row = p * num_rows
+        end_row = min(start_row + num_rows, mosaic.y_tile_count)
 
-            # create the process, pass instance and connection
-            process = Process(target=fit_tiles, args=(start_row, end_row, mosaic.x_tile_count, all_tile_data_small, original_img_small, child_conn))
-            processes.append(process)
+        # create the process, pass instance and connection
+        process = Process(target=fit_tiles, args=(start_row, end_row, mosaic.x_tile_count, all_tile_data_small, original_img_small, child_conn))
+        processes.append(process)
 
-        # start all processes
-        for process in processes:
-            process.start()
+    # start all processes
+    for process in processes:
+        process.start()
 
-        # assemble final image
-        for parent_connection in parent_connections:
-            data = parent_connection.recv()
-            for img_coords, best_fit_tile_index in data:
-                if album_cover_names[best_fit_tile_index] not in counts:
-                    counts[album_cover_names[best_fit_tile_index]] = 1
-                else:
-                    counts[album_cover_names[best_fit_tile_index]] += 1
-                tile_data = all_tile_data_large[best_fit_tile_index]
-                mosaic.add_tile(tile_data, img_coords)
+    # assemble final image
+    for parent_connection in parent_connections:
+        data = parent_connection.recv()
+        for img_coords, best_fit_tile_index in data:
+            if album_cover_names[best_fit_tile_index] not in counts:
+                counts[album_cover_names[best_fit_tile_index]] = 1
+            else:
+                counts[album_cover_names[best_fit_tile_index]] += 1
+            tile_data = all_tile_data_large[best_fit_tile_index]
+            mosaic.add_tile(tile_data, img_coords)
 
-        # make sure that all processes have finished
-        for process in processes:
-            process.join()
+    # make sure that all processes have finished
+    for process in processes:
+        process.join()
 
-    except KeyboardInterrupt:
-        print '\nHalting, saving partial image please wait...'
+    delta = datetime.datetime.now() - start_time
+    print("Time: {}s".format(int(delta.total_seconds())))
+    image_path = os.path.join(tiles_path, OUT_FILE)
 
-    finally:
-        delta = datetime.datetime.now() - start_time
-        print("Time: {}".format(int(delta.total_seconds() * 1000)))
-        image_path = os.path.join(tiles_path, OUT_FILE)
-        print 'Writing file to ', image_path
+    mosaic.save(image_path)
 
-        mosaic.save(image_path)
-        print '\nFinished, output is in', image_path
-
-        return image_path, counts
+    return image_path, counts
 
 
 def mosaic(img_path, tiles_path):
