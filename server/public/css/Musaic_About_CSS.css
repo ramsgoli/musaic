@@ -264,25 +264,25 @@
 }
 }
 
-a:link{
+#instruction a:link{
   color:white;
   font-weight: bold;
   text-decoration:underline;
 }
 
-a:visited{
+#instruction a:visited{
   color:white;
   text-decoration:none;
 }
 
-a:hover{
+#instruction a:hover{
   color:#808080;
   text-decoration: none;
 }
 
-a:active{
+
+#instruction a:active{
   color:green;
   text-decoration: none;
 
-
-
+}
