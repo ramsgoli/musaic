@@ -48,7 +48,7 @@ class TileProcessor:
                 if large_tile:
                     large_tiles.append((tile_name, large_tile))
                     small_tiles.append((tile_name, small_tile))
-        
+
         print 'Processed %s tiles.' % (len(large_tiles),)
 
         return (large_tiles, small_tiles)
@@ -66,7 +66,7 @@ class TargetImage:
         large_img = img.resize((w, h), Image.ANTIALIAS)
         w_diff = (w % TILE_SIZE)/2
         h_diff = (h % TILE_SIZE)/2
-        
+
         # if necesary, crop the image slightly so we use a whole number of tiles horizontally and vertically
         if w_diff or h_diff:
             large_img = large_img.crop((w_diff, h_diff, w - w_diff, h - h_diff))
@@ -141,69 +141,75 @@ class MosaicImage:
     def save(self, path):
         self.image.save(path)
 
-def compose(original_img, tiles, tiles_path):
-    print 'Building mosaic, press Ctrl-C to abort...'
-    print('number of workers: ', WORKER_COUNT)
-    original_img_large, original_img_small = original_img
-    tiles_large, tiles_small = tiles
+class MusaicHandler:
+    def __init__(self, image_data, tiles_data, album_covers_dir):
+        self.image_data = image_data
+        self.tiles_data = tiles_data
+        self.album_covers_dir = album_covers_dir
 
-    mosaic = MosaicImage(original_img_large)
+    def compose(self):
+        print 'Building mosaic, press Ctrl-C to abort...'
+        print('number of workers: ', WORKER_COUNT)
+        original_img_large, original_img_small = self.image_data
+        tiles_large, tiles_small = self.tiles_data
 
-    all_tile_data_large = map(lambda tile : list(tile[1].getdata()), tiles_large)
-    all_tile_data_small = map(lambda tile : list(tile[1].getdata()), tiles_small)
+        mosaic = MosaicImage(original_img_large)
 
-    # store album cover usage
-    counts = {}
-    album_cover_names = [tile_data[0] for tile_data in tiles_large]
+        all_tile_data_large = map(lambda tile : list(tile[1].getdata()), tiles_large)
+        all_tile_data_small = map(lambda tile : list(tile[1].getdata()), tiles_small)
 
-    # create a list to keep all processes
-    processes = []
+        # store album cover usage
+        counts = {}
+        album_cover_names = [tile_data[0] for tile_data in tiles_large]
 
-    # create a process per instance
-    parent_connections = []
+        # create a list to keep all processes
+        processes = []
 
-    num_rows = mosaic.y_tile_count / WORKER_COUNT
-    start_time = datetime.datetime.now()
+        # create a process per instance
+        parent_connections = []
 
-    for p in range(WORKER_COUNT):
-        # create a pipe for communication
-        parent_conn, child_conn = Pipe()
-        parent_connections.append(parent_conn)
+        num_rows = mosaic.y_tile_count / WORKER_COUNT
+        start_time = datetime.datetime.now()
 
-        # determine which tiles this process will work on
-        start_row = p * num_rows
-        end_row = min(start_row + num_rows, mosaic.y_tile_count)
+        for p in range(WORKER_COUNT):
+            # create a pipe for communication
+            parent_conn, child_conn = Pipe()
+            parent_connections.append(parent_conn)
 
-        # create the process, pass instance and connection
-        process = Process(target=fit_tiles, args=(start_row, end_row, mosaic.x_tile_count, all_tile_data_small, original_img_small, child_conn))
-        processes.append(process)
+            # determine which tiles this process will work on
+            start_row = p * num_rows
+            end_row = min(start_row + num_rows, mosaic.y_tile_count)
 
-    # start all processes
-    for process in processes:
-        process.start()
+            # create the process, pass instance and connection
+            process = Process(target=fit_tiles, args=(start_row, end_row, mosaic.x_tile_count, all_tile_data_small, original_img_small, child_conn))
+            processes.append(process)
 
-    # assemble final image
-    for parent_connection in parent_connections:
-        data = parent_connection.recv()
-        for img_coords, best_fit_tile_index in data:
-            if album_cover_names[best_fit_tile_index] not in counts:
-                counts[album_cover_names[best_fit_tile_index]] = 1
-            else:
-                counts[album_cover_names[best_fit_tile_index]] += 1
-            tile_data = all_tile_data_large[best_fit_tile_index]
-            mosaic.add_tile(tile_data, img_coords)
+        # start all processes
+        for process in processes:
+            process.start()
 
-    # make sure that all processes have finished
-    for process in processes:
-        process.join()
+        # assemble final image
+        for parent_connection in parent_connections:
+            data = parent_connection.recv()
+            for img_coords, best_fit_tile_index in data:
+                if album_cover_names[best_fit_tile_index] not in counts:
+                    counts[album_cover_names[best_fit_tile_index]] = 1
+                else:
+                    counts[album_cover_names[best_fit_tile_index]] += 1
+                tile_data = all_tile_data_large[best_fit_tile_index]
+                mosaic.add_tile(tile_data, img_coords)
 
-    delta = datetime.datetime.now() - start_time
-    print("Time: {}s".format(int(delta.total_seconds())))
-    image_path = os.path.join(tiles_path, OUT_FILE)
+        # make sure that all processes have finished
+        for process in processes:
+            process.join()
 
-    mosaic.save(image_path)
+        delta = datetime.datetime.now() - start_time
+        print("Time: {}s".format(int(delta.total_seconds())))
+        image_path = os.path.join(self.album_covers_dir, OUT_FILE)
 
-    return image_path, counts
+        mosaic.save(image_path)
+
+        return image_path, counts
 
 
 if __name__ == '__main__':
