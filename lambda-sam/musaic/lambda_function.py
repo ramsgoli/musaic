@@ -1,3 +1,4 @@
+from collections import defaultdict
 import spotipy
 import tempfile
 from urllib import urlretrieve
@@ -15,6 +16,7 @@ class LambdaHandler:
         self.file_name = event["file_name"]
         self.access_token = event["access_token"]
         self.is_dev = event.get("dev", False)
+        self.album_info = defaultdict()
 
     def create_musaic(self):
         self.sp = spotipy.Spotify(auth=self.access_token)
@@ -33,23 +35,23 @@ class LambdaHandler:
         tiles_data = TileProcessor(album_covers_dir).get_tiles()
         image_data = TargetImage(input_image_path).get_data()
         musaic_handler = MusaicHandler(image_data, tiles_data, album_covers_dir)
-        output_image_path, counts = musaic_handler .compose()
-
-        self.counter = Counter(counts)
+        output_image_path = musaic_handler.compose(self.album_info)
 
         # save generated image to s3
         output_image_key = "generated/{}".format(self.file_name)
-        self.object_url = self.save_image_to_s3(output_image_path, output_image_key)
+        object_url = self.save_image_to_s3(output_image_path, output_image_key)
 
         # clean up
         shutil.rmtree(album_covers_dir)
 
-    def response(self):
+        sorted_album_ids_by_counts = sorted(self.album_info, key=lambda x: self.album_info[x]['count'], reverse=True)
+        top_albums = {album_id: self.album_info[album_id] for album_id in sorted_album_ids_by_counts[:5]}
+
         return {
             "statusCode": 200,
             "body": {
-                "object_url": self.object_url,
-                "counts": self.counter.most_common(5)
+                "object_url": object_url,
+                "top_albums": top_albums
             }
         }
 
@@ -77,7 +79,18 @@ class LambdaHandler:
 
             # for each image URL, instantiate a process to download
             for image in image_info:
-                p = multiprocessing.Process(target=self.download_album_cover_func, args=(image, temp_dir))
+                file_name = image[0]
+                file_url = image[1]
+                album_id = file_url.split("/")[-1]
+
+                # set album info in self.album_info
+                self.album_info[album_id] = {
+                    'count': 0,
+                    'url': file_url,
+                    'name': file_name
+                }
+
+                p = multiprocessing.Process(target=self.download_album_cover_func, args=(file_url, album_id, temp_dir))
                 processes.append(p)
                 p.start()
 
@@ -87,10 +100,10 @@ class LambdaHandler:
 
         print "Finished downloading all files"
 
-    def download_album_cover_func(self, image, directory):
-        file_name = image[0]
-        file_path = path.join(directory, file_name)
-        urlretrieve(image[1], file_path)
+    def download_album_cover_func(self, file_url, album_id, directory):
+        file_path = path.join(directory, album_id)
+        urlretrieve(file_url, file_path)
+
 
     def get_image_from_s3(self):
         INPUT_IMAGE = '/tmp/input_image.jpg'
@@ -114,7 +127,5 @@ class LambdaHandler:
 
 
 def lambda_handler(event, context):
-    lambda_handler = LambdaHandler(event)
-    lambda_handler.create_musaic()
-
-    return lambda_handler.response()
+    handler = LambdaHandler(event)
+    return handler.create_musaic()

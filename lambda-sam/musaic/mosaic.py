@@ -42,12 +42,12 @@ class TileProcessor:
 
         # search the tiles directory recursively
         for root, subFolders, files in os.walk(self.tiles_directory):
-            for tile_name in files:
-                tile_path = os.path.join(root, tile_name)
+            for album_id in files:
+                tile_path = os.path.join(root, album_id)
                 large_tile, small_tile = self.__process_tile(tile_path)
                 if large_tile:
-                    large_tiles.append((tile_name, large_tile))
-                    small_tiles.append((tile_name, small_tile))
+                    large_tiles.append((album_id, large_tile))
+                    small_tiles.append((album_id, small_tile))
 
         print 'Processed %s tiles.' % (len(large_tiles),)
 
@@ -141,13 +141,15 @@ class MosaicImage:
     def save(self, path):
         self.image.save(path)
 
+
 class MusaicHandler:
     def __init__(self, image_data, tiles_data, album_covers_dir):
         self.image_data = image_data
         self.tiles_data = tiles_data
         self.album_covers_dir = album_covers_dir
+        self.counts = {}
 
-    def compose(self):
+    def compose(self, album_info):
         print 'Building mosaic, press Ctrl-C to abort...'
         print('number of workers: ', WORKER_COUNT)
         original_img_large, original_img_small = self.image_data
@@ -159,8 +161,7 @@ class MusaicHandler:
         all_tile_data_small = map(lambda tile : list(tile[1].getdata()), tiles_small)
 
         # store album cover usage
-        counts = {}
-        album_cover_names = [tile_data[0] for tile_data in tiles_large]
+        album_ids = [tile_data[0] for tile_data in tiles_large]
 
         # create a list to keep all processes
         processes = []
@@ -192,10 +193,7 @@ class MusaicHandler:
         for parent_connection in parent_connections:
             data = parent_connection.recv()
             for img_coords, best_fit_tile_index in data:
-                if album_cover_names[best_fit_tile_index] not in counts:
-                    counts[album_cover_names[best_fit_tile_index]] = 1
-                else:
-                    counts[album_cover_names[best_fit_tile_index]] += 1
+                album_info[album_ids[best_fit_tile_index]]['count'] += 1
                 tile_data = all_tile_data_large[best_fit_tile_index]
                 mosaic.add_tile(tile_data, img_coords)
 
@@ -209,12 +207,5 @@ class MusaicHandler:
 
         mosaic.save(image_path)
 
-        return image_path, counts
-
-
-if __name__ == '__main__':
-    if len(sys.argv) < 3:
-        print 'Usage: %s <image> <tiles directory>\r' % (sys.argv[0],)
-    else:
-        mosaic(sys.argv[1], sys.argv[2])
+        return image_path
 
