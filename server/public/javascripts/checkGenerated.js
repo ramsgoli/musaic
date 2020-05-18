@@ -8,7 +8,6 @@ const pollStepFunction = id => {
     try {
       const response = await fetch(`https://568efiwqxe.execute-api.us-west-1.amazonaws.com/${stage}?id=${id}`)
       const data = await response.json()
-      console.log(data)
 
       const { status } = data
       switch (status) {
@@ -17,7 +16,7 @@ const pollStepFunction = id => {
         case "SUCCEEDED":
           clearInterval(interval)
           const output = JSON.parse(data.output)
-          sessionStorage.setItem("counts", output.counts)
+          sessionStorage.setItem("topAlbums", JSON.stringify(output.body.top_albums))
           window.location.href=`/result`
           break
         default:
@@ -26,7 +25,7 @@ const pollStepFunction = id => {
           break
       }
     } catch (err) {
-      console.log(err)
+      clearInterval(interval)
     }
   }, 2000)
 }

@@ -36,10 +36,30 @@ const initializeDownloadButton = () => {
   })
 }
 
+const initializeTopAlbums = () => {
+  const topAlbums = JSON.parse(sessionStorage.getItem('topAlbums'))
+  const resultZoomContainer = document.getElementById('result-zoom')
+  for (album in topAlbums) {
+    const topAlbumDiv = document.createElement('div')
+    topAlbumDiv.className = "top-album-div"
+
+    const nameParagraphTag = document.createElement('p')
+    const nameNode = document.createTextNode(topAlbums[album]['name'])
+    nameParagraphTag.appendChild(nameNode)
+
+    const imageTag = document.createElement('img')
+    imageTag.src = topAlbums[album]['url']
+
+    topAlbumDiv.append(nameParagraphTag, imageTag)
+    resultZoomContainer.appendChild(topAlbumDiv)
+  }
+}
+
 const run = () => {
   const img = insertImgTag()
   initializeDrift(img)
   initializeDownloadButton()
+  initializeTopAlbums()
 }
 
 run()
