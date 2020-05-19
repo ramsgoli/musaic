@@ -7,7 +7,10 @@ const getMusaicBucket = () => {
 }
 
 const insertImgTag = () => {
-  const fileName = sessionStorage.getItem('fileName')
+  let fileName = sessionStorage.getItem('fileName')
+  if (fileName.startsWith("preloaded")) {
+    fileName = fileName.replace("preloaded/", "")
+  }
   const fileUrl = `https://${getMusaicBucket()}.s3-us-west-1.amazonaws.com/generated/${fileName}`
 
   const img = document.getElementById('result-img')

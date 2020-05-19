@@ -17,6 +17,11 @@ class LambdaHandler:
         self.access_token = event["access_token"]
         self.is_dev = event.get("dev", False)
         self.album_info = defaultdict()
+        self.is_stock = False
+
+        if self.file_name.startswith("preloaded"):
+            self.is_stock = True
+            self.file_name = "/".join(self.file_name.split('/')[1:])
 
     def create_musaic(self):
         self.sp = spotipy.Spotify(auth=self.access_token)
@@ -112,7 +117,11 @@ class LambdaHandler:
         bucket_path = 'musaic-dev' if self.is_dev else 'musaic'
         bucket = client.Bucket(bucket_path)
         with open(INPUT_IMAGE, 'wb') as f:
-            bucket.download_fileobj("uploads/{}".format(self.file_name), f)
+            if self.is_stock:
+                file_name = self.file_name.split('/')[-1]
+                bucket.download_fileobj("preloaded/{}".format(file_name), f)
+            else:
+                bucket.download_fileobj("uploads/{}".format(self.file_name), f)
 
         return INPUT_IMAGE
 
