@@ -131,8 +131,8 @@
 }
 
 #result-with-zoom {
-	display: flex;
-	flex-flow: row;
+  display: flex;
+  flex-flow: column;
   width:75%;
 }
 
@@ -144,8 +144,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-	position: relative;
-	margin-left: 10%;
+  position: relative;
+  margin-left: 10%;
 }
 
 #result{
@@ -159,8 +159,61 @@
 }
 
 #result img {
-	width: 100%;
+  width: 100%;
 }
+
+#legend{
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  width: 50%;
+}
+
+#legend_text{
+  display: flex;
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-decoration: bold;
+  margin-left: 10%;
+}
+
+.top-album-div{
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+}
+
+.top-album-div p{
+  display: flex;
+    width: 75%
+  }
+
+.top-album-div img{
+  width: 50%;
+}
+
+@media screen and (max-width: 900px) { 
+    #img-and-legend{
+        flex-direction: column;
+    }
+    #result-with-zoom {
+      width: 100%;
+    }
+    #legend_text{
+      margin-left: 0%;
+    }
+    #result-zoom{
+      margin-left: 0%;
+    }
+    #legend{
+      margin-top: 20px;
+      width:100%;
+    }
+    .top-album-div img{
+      width: 75%;
+    }
+}
+
 
  @media screen and (max-width: 900px) { 
     #result{
@@ -180,28 +233,6 @@
   }
 }
 
-
-#legend{
-  display: flex;
-  flex-direction: column;
-  flex: 1 0 auto;
-  width: 50%;
-}
-
-#hover{
-  display: flex;
-  margin-left: 10%;
-}
-
-.top-album-div{
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-}
-
-.top-album-div img{
-  width: 50%;
-}
 
 #buttons{
     display: flex;

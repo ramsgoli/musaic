@@ -22,7 +22,7 @@ const initializeDrift = (img) => {
   new Drift(img, {
     sourceAttribute: 'src',
     paneContainer: document.querySelector('#result-zoom'),
-    zoomFactor: 8,
+    zoomFactor: 12,
     inlinePane: 900,
     inlineOffsetY: -85,
     containInline: true,
@@ -50,7 +50,7 @@ const initializeTopAlbums = () => {
     const imageTag = document.createElement('img')
     imageTag.src = topAlbums[album]['url']
 
-    topAlbumDiv.append(nameParagraphTag, imageTag)
+    topAlbumDiv.append(imageTag,nameParagraphTag)
     resultZoomContainer.appendChild(topAlbumDiv)
   }
 }
