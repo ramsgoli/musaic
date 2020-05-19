@@ -27,7 +27,7 @@ const initializeDrift = (img) => {
   new Drift(img, {
     sourceAttribute: 'src',
     paneContainer: document.querySelector('#result-zoom'),
-    zoomFactor: 12,
+    zoomFactor: 10,
     inlinePane: 900,
     inlineOffsetY: -85,
     containInline: true,

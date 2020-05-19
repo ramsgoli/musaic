@@ -162,6 +162,13 @@
   width: 100%;
 }
 
+#albums-and-header{
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 10px;
+}
+
 #legend{
   display: flex;
   flex-direction: column;
