@@ -7,12 +7,14 @@ block headContent
 block bodyContent
   #result_container
     h2 Your Musaic
-    #result-with-zoom
-      img#result-img
-      #result-zoom
-        p Hover over the image to zoom in!
-  #buttons
-    #download Download
+    #img-and-legend
+      #result-with-zoom
+        img#result-img
+      #legend
+        p#hover Hover over the image to zoom in!
+        #result-zoom
+    #buttons
+      #download Download
   script(src='/javascripts/Drift.js')
   script(src='/javascripts/loadResult.js')
 
