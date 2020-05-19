@@ -6,15 +6,17 @@ const getMusaicBucket = () => {
   }
 }
 
-const insertImgTag = () => {
+const getFileUrl = () => {
   let fileName = sessionStorage.getItem('fileName')
   if (fileName.startsWith("preloaded")) {
     fileName = fileName.replace("preloaded/", "")
   }
-  const fileUrl = `https://${getMusaicBucket()}.s3-us-west-1.amazonaws.com/generated/${fileName}`
+  return fileUrl = `https://${getMusaicBucket()}.s3-us-west-1.amazonaws.com/generated/${fileName}`
+}
 
+const insertImgTag = () => {
   const img = document.getElementById('result-img')
-  img.src = fileUrl
+  img.src = getFileUrl()
   const resultDiv = document.getElementById('result-with-zoom')
   resultDiv.insertBefore(img, resultDiv.firstChild)
 
@@ -35,7 +37,7 @@ const initializeDrift = (img) => {
 
 const initializeDownloadButton = () => {
   document.getElementById('download').addEventListener('click', () => {
-    window.location.href=fileUrl
+    window.location.href = getFileUrl()
   })
 }
 
