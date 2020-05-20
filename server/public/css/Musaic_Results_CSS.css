@@ -10,7 +10,6 @@
   box-sizing: border-box;
     padding: 0;
     margin: 0;
-    margin-bottom: 50px;
 }
 .flexmenu {
   width: 100%;
@@ -26,7 +25,6 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: 50px;
 }
 #logo{
   display: flex;
@@ -123,21 +121,31 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    width: 90%;
+    margin-left: 5%;
+}
+
+#img-and-legend{
+  display: flex;
+  flex-direction: row;
 }
 
 #result-with-zoom {
-	display: flex;
-	flex-flow: row;
+  display: flex;
+  flex-flow: column;
+  width:75%;
 }
 
 #result-with-zoom img {
-	width: 40%;
+  width: 100%;
 }
 
 #result-zoom {
-	width: 55%;
-	position: relative;
-	margin-left: 5%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  position: relative;
+  margin-left: 10%;
 }
 
 #result{
@@ -151,8 +159,68 @@
 }
 
 #result img {
-	width: 100%;
+  width: 100%;
 }
+
+#albums-and-header{
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 10px;
+}
+
+#legend{
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
+  width: 50%;
+}
+
+#legend_text{
+  display: flex;
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-decoration: bold;
+  margin-left: 10%;
+}
+
+.top-album-div{
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+}
+
+.top-album-div p{
+  display: flex;
+    width: 75%
+  }
+
+.top-album-div img{
+  width: 50%;
+}
+
+@media screen and (max-width: 900px) { 
+    #img-and-legend{
+        flex-direction: column;
+    }
+    #result-with-zoom {
+      width: 100%;
+    }
+    #legend_text{
+      margin-left: 0%;
+    }
+    #result-zoom{
+      margin-left: 0%;
+    }
+    #legend{
+      margin-top: 20px;
+      width:100%;
+    }
+    .top-album-div img{
+      width: 75%;
+    }
+}
+
 
  @media screen and (max-width: 900px) { 
     #result{
@@ -172,6 +240,32 @@
   }
 }
 
+
+#buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#download{
+   display: flex;
+  height:75px;
+  width:200px;
+  border-style: none;
+  background-color: #00BEE4;
+  font-size: 18px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+    -webkit-box-shadow: rgba(0, 190, 228) 0 3px 4px;
+    -moz-box-shadow: rgba(0, 190, 228) 0 3px 4px;
+    box-shadow: rgba(0, 190, 228) 0 3px 4px;
+  cursor:pointer;
+  margin-bottom: 50px;
+}
+
+/*
 
 #albums_used{
     display: flex;
@@ -203,28 +297,7 @@
 }
 
 
-#buttons{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
 
-#download{
-   display: flex;
-  height:75px;
-  width:200px;
-  border-style: none;
-  background-color: #00BEE4;
-  font-size: 18px;
-  font-weight: bold;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-    -webkit-box-shadow: rgba(0, 190, 228) 0 3px 4px;
-    -moz-box-shadow: rgba(0, 190, 228) 0 3px 4px;
-    box-shadow: rgba(0, 190, 228) 0 3px 4px;
-  cursor:pointer;
-}
 
 #share_container{
     display: flex;
@@ -249,4 +322,4 @@
     margin: 10px;
     height: 100px;
     width: 100px;
-}
+}*/

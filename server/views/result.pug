@@ -7,13 +7,16 @@ block headContent
 block bodyContent
   #result_container
     h2 Your Musaic
-    #result-with-zoom
-      img#result-img
-      #result-zoom
-        p Hover over the image to zoom in!
-  #buttons
-    #download Download
-  s
+    #img-and-legend
+      #result-with-zoom
+        img#result-img
+        span Hover over the image to zoom in!
+      #legend
+        #albums-and-header
+          span#legend_text Top albums used in Musaic:
+          #result-zoom
+    #buttons
+      #download Download
   script(src='/javascripts/Drift.js')
   script(src='/javascripts/loadResult.js')
 
