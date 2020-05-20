@@ -132,6 +132,10 @@
     flex-direction: column;
 }
 
+#result p{
+  font-size: 20px;
+}
+
 @media screen and (max-width: 1400px) { 
     #result{
       width:400px;
@@ -152,8 +156,8 @@
 
 #generate_musaic{
   display: flex;
-  height:75px;
-  width:200px;
+  height:63px;
+  width:201px;
   border-style: none;
   background-color: #00BEE4;
   font-size: 18px;
@@ -169,7 +173,7 @@
 
 
 img {
-    max-width: 75%;
+    max-width: 60%;
 }
 
 

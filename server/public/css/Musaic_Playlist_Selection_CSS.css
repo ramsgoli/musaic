@@ -192,13 +192,13 @@
     border-width: 2px;
     border-color: #808080;*/
     border-style: none;
-    width: 315px;
+    width: 400px;
     justify-content: center;
     align-items: center;
     align-content: center;
     flex-direction: column;
     text-align: center;
-
+    padding-right: 100px;
 }
 
 
@@ -206,9 +206,6 @@
     #col{
         flex-direction:column;
         align-items: center;
-    }
-    #viz{
-        margin-bottom:30px;
     }
     #viz img{
         width:200px;
@@ -218,7 +215,11 @@
        /* margin-top: -102px;*/
        /* margin-bottom: -100px;*/
     }
-
+    #instruction{
+      width: 90%;
+      margin-top: 50px;
+      padding-right: 0px;
+    }
 }
 
 @media only screen and (max-width: 700px) { 
@@ -312,17 +313,18 @@
 
 #playlist_container {
   display: flex;
-	width: 40%;
+  width: 35%;
 	/*padding: 20px;
 	min-width: 260px;*/
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin: 20px -20px;
 }
 
 #playlist_container a{
   display: flex;
-  width: 62.5%;
+  width: 50%;
   /*padding: 20px;
   min-width: 260px;*/
   align-items: center;
@@ -332,7 +334,7 @@
 
 #playlist_container img {
 	/*max-width: 62.5%;*/
-  max-width: 100%;
+  max-width: 85%;
 }
 
 .playlist_item{
@@ -345,7 +347,10 @@
   #Gallery{
     flex-flow: column;
   }
+   #playlist_container{
+      width:50%;
+    }
   #playlist_container a{
-  width: 150%;
-}
+     width: 150%;
+  }
 }

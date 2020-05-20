@@ -168,19 +168,23 @@
 
 }
 
+#viz img{
+  margin-left: 50px;
+}
+
 #instruction{
     display: flex;
     /*border-style: solid;
     border-width: 2px;
     border-color: #808080;*/
     border-style: none;
-    width: 315px;
+    width: 400px;
     justify-content: center;
     align-items: center;
     align-content: center;
     flex-direction: column;
     text-align: center;
-
+    padding-right: 100px;
 }
 
 
@@ -194,6 +198,44 @@
   justify-content: center;
   align-items: space-between;
 
+}
+
+#good_photos{
+    display: flex;
+    flex-direction: column;
+  /*  border-style: solid;
+    border-width: 2px;
+    border-color: red;*/
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#good_photos_row{
+    display: flex;
+    /*border-style: solid;
+    border-width: 2px;
+    border-color: red;*/
+    width: 90%;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.Gallery_Boxes{
+    display: flex;
+    /*border-style: solid;
+    border-width: 2px;
+    border-color: red;*/
+    justify-content: center;
+    align-items: center;
+    align-content: space-between;
+    margin: 0px 2.5%;
+    cursor:pointer;
+}
+
+.Gallery_Boxes img{
+   width: 100%;
 }
 
 
@@ -226,9 +268,12 @@ input[type=submit]:hover {
 
     #viz img{
         width:200px;
+        margin-left: 0px;
     }
     #instruction{
+      width: 90%;
       margin-top: 50px;
+      padding-right: 0px;
     }
 
     #vizandinstr{
@@ -239,6 +284,10 @@ input[type=submit]:hover {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    #good_photos{
+      margin-top: 0px;
     }
 
 }
@@ -266,43 +315,6 @@ input[type=submit]:hover {
         align-items: center;
     }
 
-}
-
-#good_photos{
-    display: flex;
-    flex-direction: column;
-  /*  border-style: solid;
-    border-width: 2px;
-    border-color: red;*/
-    justify-content: center;
-    align-items: center;
-}
-
-#good_photos_row{
-    display: flex;
-    /*border-style: solid;
-    border-width: 2px;
-    border-color: red;*/
-    width: 90%;
-    align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.Gallery_Boxes{
-    display: flex;
-    /*border-style: solid;
-    border-width: 2px;
-    border-color: red;*/
-    justify-content: center;
-    align-items: center;
-    align-content: space-between;
-    margin: 0px 2.5%;
-    cursor:pointer;
-}
-
-.Gallery_Boxes img{
-   width: 100%;
 }
 
 @media only screen and (max-width: 900px) { 

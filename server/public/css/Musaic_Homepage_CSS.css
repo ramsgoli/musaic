@@ -120,7 +120,7 @@
 
 #showcase_photo{
 	display: flex;
-	max-width: 60%;
+	max-width: 90%;
 	align-items: center;
 	
 }
@@ -282,8 +282,11 @@
 }
 
 @media screen and (max-width: 900px) { 
+	#MS {
+		margin-top: 0px;
+	}
 	#MS_Text{
-		font-size: 140%;
+		width:90%;
 	}
 }
 
@@ -324,6 +327,11 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	width: 75%;
+}
+
+.step_box p{
+	font-size: 20px;
 }
 
 @media screen and (max-width: 900px) { 
@@ -364,8 +372,8 @@
 
 @media screen and (max-width: 900px) { 
 	#Gallery_Container p{
-		width: 500px;
-		font-size: 140%;
+		width:90%;
+		/*font-size: 140%;*/
 	}
 }
 
