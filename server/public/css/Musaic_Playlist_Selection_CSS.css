@@ -186,9 +186,6 @@
 
 }
 
-#viz img{
-}
-
 #instruction{
     display: flex;
     /*border-style: solid;
@@ -357,8 +354,3 @@
      width: 150%;
   }
 }
-
-
-
-
-
