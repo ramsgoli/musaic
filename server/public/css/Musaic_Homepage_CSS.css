@@ -248,7 +248,7 @@
 		width: 100%;
 	}
 	#Create_Musaic a{
-		font-size: 80%;
+		font-size: 12px;
 	}
 }
 
@@ -277,7 +277,7 @@
 
 #MS_Text{
 	  margin:0px;
-	  font-size: 24px;
+	  font-size: 18px;
 	  width: 500px;
 }
 
@@ -320,7 +320,7 @@
     justify-content: center;
     align-self: center;
     align-content: center;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .step_box img{
@@ -351,6 +351,13 @@
 	height:50px;
 }
 
+#Gallery{
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
 #Gallery_Container{
 	display: flex;
 	max-width: 100%;
@@ -361,13 +368,12 @@
 	align-items: center;
 	flex-direction: column;
     text-align: center; 
-    margin-top: 50px;
     margin-bottom: 50px;
 }
 
 #Gallery_Container p{
 	margin:0px;
-	  font-size: 24px;
+	  font-size: 18px;
 	  width: 500px;
 }
 
@@ -378,20 +384,6 @@
 	}
 }
 
-#Gallery_Head{
-	display: flex;
-	width:100px;
-	height:50px;
-	justify-content: center;
-	align-items: center;
-}
-
-#Gallery{
-	display: flex;
-	width: 100%;
-	justify-content: center;
-	align-items: center;
-}
 
 #Gallery_Container a:link{
   color:white;
@@ -413,7 +405,16 @@
   color:green;
   text-decoration: none;
 }
-/*#Gallery_Col1{
+/*
+#Gallery_Head{
+	display: flex;
+	width:100px;
+	height:50px;
+	justify-content: center;
+	align-items: center;
+}
+
+#Gallery_Col1{
 	display: flex;
 	width: 100%;
 	height: 500px;
