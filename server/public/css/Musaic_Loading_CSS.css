@@ -159,5 +159,12 @@
 
 
 
-
+@media screen and (max-width: 700px){
+  #stage {
+    margin-top: 125px;
+  }
+    #stage img{
+        width:200px;
+    }
+}
 
