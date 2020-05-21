@@ -330,6 +330,7 @@
   align-items: center;
   justify-content: center;
   flex-flow: column wrap;
+  text-decoration: none;
 }
 
 #playlist_container img {
