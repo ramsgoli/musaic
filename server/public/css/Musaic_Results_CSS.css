@@ -125,6 +125,15 @@
     margin-left: 5%;
 }
 
+#email p{
+  font-size: 20px;
+}
+
+#result_container a{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
 #img-and-legend{
   display: flex;
   flex-direction: row;
@@ -193,7 +202,8 @@
 
 .top-album-div p{
   display: flex;
-    width: 75%
+    width: 75%;
+    font-size: 18px;
   }
 
 .top-album-div img{
