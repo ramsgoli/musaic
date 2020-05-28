@@ -1,5 +1,7 @@
 # musaic
 
+![showcase](showcase.png)
+
 ## Architectural Overview
 Musaic is comprised of several different services that work in tandem to deliver the final musaic.
 
