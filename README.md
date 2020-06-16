@@ -6,7 +6,7 @@
 Musaic is comprised of several different services that work in tandem to deliver the final musaic.
 
 ### Web App
-The Musaic web app is a node.js + express app that serves Pug views. It is deployed
+The Musaic web app is a node.js + express app that renders Pug views. It is deployed
 on a free tier of heroku.
 
 ### S3
@@ -20,8 +20,8 @@ the step function for the completion status.
 
 ### Lambda
 The algorithm that generates the musaic is adapted from [https://github.com/codebox/mosaic]. In particular,
-it is adapted to run in an AWS lambda environment by using the python multiprocessing library's Pipe capabilities.
-When a user confirms the playlist they want to use, a Step Function is triggerd which
+it is adapted to run in an AWS lambda environment by using the python multiprocessing library's Pipe objects.
+When a user confirms the playlist they want to use, a Step Function is triggered which
 initiates a lambda function that pulls the appropriate uploaded photo from S3, downloads the playlist's album covers,
 generates the musaic, and stores it back in S3. 
 
