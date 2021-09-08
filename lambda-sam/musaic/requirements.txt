@@ -8,7 +8,7 @@ idna==2.9
 jedi==0.17.0
 jmespath==0.9.5
 parso==0.7.0
-Pillow==6.2.2
+Pillow==8.3.2
 python-dateutil==2.8.1
 requests==2.23.0
 rope==0.16.0
